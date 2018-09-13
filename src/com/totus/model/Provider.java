@@ -22,8 +22,13 @@ public class Provider extends Model{
     private String municipio;
     private String rfc;
 
+    
     public Provider(){
         super(Constant.PROVIDER);
+    }
+    public Provider(int id){
+        super(Constant.PROVIDER);
+        super.setId(id);
     }
 
     public String getPersona() {

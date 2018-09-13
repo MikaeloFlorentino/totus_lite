@@ -25,6 +25,10 @@ public class Client extends Model{
     public Client(){
         super(Constant.CLIENT);
     }
+    public Client(int id){
+        super(Constant.CLIENT);
+        super.setId(id);
+    }
 
     public String getPersona() {
         return persona;

@@ -2,6 +2,7 @@ package com.totus.model;
 
 import com.totus.utilities.Constant;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  *
@@ -15,9 +16,9 @@ public class Product extends Model{
     private String clave;
     private String lote;
     private String descripcion;
-    private String fechaFabricacion;
-    private String fechaExpiracion;
-    private String fechaDevolucion;
+    private Date fechaFabricacion;
+    private Date fechaExpiracion;
+    private Date fechaDevolucion;
     private int cantidad;
     private BigDecimal precioCompra;
     private String factura;
@@ -27,6 +28,11 @@ public class Product extends Model{
         super(Constant.PRODUCT);
     }
 
+    public Product(int id) {
+        super(Constant.PRODUCT);
+        super.setId(id);
+    }
+    
     public Provider getProvider() {
         return provider;
     }
@@ -67,27 +73,27 @@ public class Product extends Model{
         this.descripcion = descripcion;
     }
 
-    public String getFechaFabricacion() {
+    public Date getFechaFabricacion() {
         return fechaFabricacion;
     }
 
-    public void setFechaFabricacion(String fechaFabricacion) {
+    public void setFechaFabricacion(Date fechaFabricacion) {
         this.fechaFabricacion = fechaFabricacion;
     }
 
-    public String getFechaExpiracion() {
+    public Date getFechaExpiracion() {
         return fechaExpiracion;
     }
 
-    public void setFechaExpiracion(String fechaExpiracion) {
+    public void setFechaExpiracion(Date fechaExpiracion) {
         this.fechaExpiracion = fechaExpiracion;
     }
 
-    public String getFechaDevolucion() {
+    public Date getFechaDevolucion() {
         return fechaDevolucion;
     }
 
-    public void setFechaDevolucion(String fechaDevolucion) {
+    public void setFechaDevolucion(Date fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
 

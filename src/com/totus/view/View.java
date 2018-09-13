@@ -19,6 +19,7 @@ public abstract class View <T extends Model> extends javax.swing.JDialog{
         setTitle(titulo);
         setSize(new java.awt.Dimension(ancho, alto));
         setLocationRelativeTo(null);
+        setResizable(false);
         //setAlwaysOnTop(true);
     }
 }

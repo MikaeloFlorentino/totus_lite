@@ -25,7 +25,7 @@ public class ProviderController  extends Controller<Provider> {
     }
     
     
-     public Provider getProviderById(Provider instance) throws SQLException{
+    public Provider getProviderById(Provider instance) throws SQLException{
         ProviderTab providerTab = new ProviderTab();
         Provider provider = new Provider();
         instance.setCampos(
@@ -149,7 +149,7 @@ public class ProviderController  extends Controller<Provider> {
                 
         try {
             instance = super.save(instance);
-            instance.setError(new Error("000000", "Usuario Creado: "));
+            instance.setError(new Error("000000", "Provedor Creado: "));
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             if(ex.getMessage().startsWith("ERROR: duplicate key")){
@@ -171,7 +171,7 @@ public class ProviderController  extends Controller<Provider> {
         
         try {
             instance = super.delete(instance);
-            instance.setError(new Error("000000", "Usuario Eliminado"));
+            instance.setError(new Error("000000", "Provedor Eliminado"));
         } catch (SQLException ex) {
             instance.setError(new Error("000002", ex.getMessage()));
         } catch (ClassNotFoundException ex) {
@@ -211,6 +211,7 @@ public class ProviderController  extends Controller<Provider> {
             if(result != null){
                 try {
                     while (result .next()){
+                        provider = new Provider();
                         provider.setId(result.getInt(1) );
                         provider.setNombre(result.getString(2) );
                         provider.setCalle(result.getString(3));

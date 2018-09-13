@@ -206,6 +206,7 @@ public class ClientController  extends Controller<Client> {
             if(result != null){
                 try {
                     while (result .next()){
+                        client = new Client();
                         client.setId(result.getInt(1) );
                         client.setNombre(result.getString(2) );
                         client.setCalle(result.getString(3));

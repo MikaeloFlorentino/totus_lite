@@ -60,7 +60,7 @@ public class UserFinder  extends View <User> {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Nombre provedor");
+        jLabel1.setText("Nombre Usuario");
 
         jTFUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

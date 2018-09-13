@@ -25,7 +25,7 @@ public class LoginController extends Controller<User> {
         instance.setCampos(
                 userTab.getUsername()+", "+
                 userTab.getUser_type_id()+", "+
-                userTab.getStatus_id()+", "+
+                userTab.getStatus()+", "+
                 userTab.getName()+", "+
                 userTab.getFirst_last_name()+", "+
                 userTab.getSecond_last_name()+", "+
@@ -44,7 +44,7 @@ public class LoginController extends Controller<User> {
                         user.setExists(true);
                         user.setUsername( result.getString(1) );
                         user.setUser_type( new UserType(result.getInt(2)) );
-                        user.setStatus( new Status(result.getInt(3)));
+                        user.setStatus( result.getString(3) );
                         user.setName(result.getString(4));
                         user.setFirst_last_name(result.getString(5));
                         user.setSecond_last_name(result.getString(6));

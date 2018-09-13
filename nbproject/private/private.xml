@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/view/Provider_2View.java</file>
-            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/view/MenuView.java</file>
-            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/view/UserView.java</file>
-            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/view/ProviderView.java</file>
-            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/view/View.java</file>
-            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/view/ClientView.java</file>
+            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/report/quirofano.jrxml</file>
+            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/view/QuirofanoAbrirView.java</file>
+            <file>file:/home/mikaelo/NetBeansProjects/totus_lite/src/com/totus/controller/QuirofanoController.java</file>
         </group>
     </open-files>
 </project-private>

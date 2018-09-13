@@ -7,7 +7,7 @@ package com.totus.table;
 public class UserTab {
     private final String id = "id";
     private final String user_type_id = "user_type_id";
-    private final String status_id = "status_id";
+    private final String status = "status";
     private final String username = "username";
     private final String encrypted_password = "encrypted_password";
     private final String name = "name";
@@ -32,8 +32,8 @@ public class UserTab {
         return user_type_id;
     }
 
-    public String getStatus_id() {
-        return status_id;
+    public String getStatus() {
+        return status;
     }
 
     public String getUsername() {

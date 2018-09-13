@@ -18,6 +18,86 @@ public class StatusController extends Controller<Status> {
         super();
     }
     
+    
+
+    public List<Status> getListByName(Status instance) {
+        List<Status> listStatus = new ArrayList<>();
+        StatusTab statusTab = new StatusTab();
+        Status status = new Status();
+        instance.setCampos(
+                statusTab.getId()+", "+
+                statusTab.getDescription()
+               
+            );
+        if(null != instance.getDescription()){
+            if(instance.getDescription().trim().length()>0){
+                instance.setCondicional(" WHERE "+statusTab.getDescription()+" like '%"+instance.getDescription()+"%'");
+            }else{
+                instance.setCondicional("");
+            }
+        }else{
+            instance.setCondicional("");
+        }
+            
+        
+        
+        ResultSet result=null;
+        try {
+            result = super.select(instance);
+            if(result != null){
+                try {
+                    while (result .next()){
+                        status = new Status();
+                        status.setId(result.getInt(1) );
+                        status.setDescription(result.getString(2) );
+                        status.setError(new Error("000000", "Lista encontrada"));
+                        listStatus.add(status);
+                    }
+                } catch (SQLException ex) {
+                    //instance.setError(new Error("000003", ex.getMessage()));
+                }
+            }
+        } catch (SQLException ex) {
+            //instance.setError(new Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            //instance.setError(new Error("000001", ex.getMessage()));
+        }
+        return listStatus;
+    }
+    
+    public Status getProviderById(Status instance) throws SQLException{
+        StatusTab statusTab = new StatusTab();
+        Status status = new Status();
+        instance.setCampos(
+                statusTab.getDescription()
+               
+            );
+        instance.setCondicional(" WHERE id="+instance.getId());
+        
+        ResultSet result=null;
+        try {
+            result = super.select(instance);
+            if(result != null){
+                try {
+                    while (result .next()){
+                        status.setExists(true);
+                        status.setId(instance.getId());
+                        status.setDescription(result.getString(1) );
+                        status.setError(new Error("000000", "Lista encontrada"));
+                        
+                    }
+                } catch (SQLException ex) {
+                    instance.setError(new Error("000003", ex.getMessage()));
+                }
+            }
+        } catch (SQLException ex) {
+            instance.setError(new Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            instance.setError(new Error("000001", ex.getMessage()));
+        }
+        return status;
+    }
+    
     /**
      * Hace un select sin filtro, regresa todo el data de la tabla
      * @return List<Status>

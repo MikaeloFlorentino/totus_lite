@@ -39,7 +39,10 @@ public class Load {
         }else
         if(0 == llave.compareTo(Constant.PARAMETER_PG_DATB)){
             Constant.PARAMETER_FILE_PG_DATB = valor;
-        }        
+        }else
+        if(0 == llave.compareTo(Constant.PARAMETER_PATH_REPORT)){
+            Constant.PARAMETER_FILE_PATH_REPORT = valor;
+        }      
     }
     
     public void mainLoad() throws FileNotFoundException, IOException{

@@ -18,6 +18,8 @@ public class Constant {
     public static String PARAMETER_FILE_PG_PASS;
     public static String PARAMETER_FILE_PG_DATB;
     
+    public static String PARAMETER_FILE_PATH_REPORT;
+    
     final public static String PARAMETER_SERVER = "server";
     final public static String PARAMETER_PROTOCOL = "protocol";
     final public static String PARAMETER_PATH = "path";
@@ -29,14 +31,18 @@ public class Constant {
     final public static String PARAMETER_PG_PASS = "pg_pass";
     final public static String PARAMETER_PG_DATB = "pg_datb";
 
+    final public static String PARAMETER_PATH_REPORT="path_repo";
+    
     final public static String PARAMETER_FILE = "totus.conf";
     
     final public static String USER = "users";
     final public static String CLIENT = "clients";
     final public static String STATUS = "statuses";
     final public static String PROVIDER = "providers";
-    final public static String PRODUCT = "product";
+    final public static String PRODUCT = "products";
     final public static String USER_TYPE = "user_types";
+    final public static String QUIROFANO = "quirofano";
+    final public static String QUIROFANO_PRODUCTO = "quirofano_producto";
 
     final public static String URL_USER_AUTENTICATE = "authenticate";
     

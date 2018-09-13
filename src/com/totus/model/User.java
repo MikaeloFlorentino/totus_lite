@@ -12,7 +12,7 @@ public class User extends Model{
     
     
     private UserType user_type;
-    private Status status;
+    private String status;
     private String username;
     private String password;
     private String name;
@@ -25,6 +25,10 @@ public class User extends Model{
     public User(){
         super(Constant.USER);
     }
+    public User(int id){
+        super(Constant.USER);
+        super.setId(id);
+    }
 
     public UserType getUser_type() {
         return user_type;
@@ -34,11 +38,11 @@ public class User extends Model{
         this.user_type = usertType;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
