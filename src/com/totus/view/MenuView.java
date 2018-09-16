@@ -6,7 +6,6 @@ import com.totus.model.Provider;
 import com.totus.model.User;
 import com.totus.report.Report;
 import com.totus.utilities.Constant;
-import com.totus.view.panel.MonthPanel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +55,7 @@ public class MenuView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new com.totus.view.panel.MonthPanel();
+        jPanel1 = new javax.swing.JPanel();
         jtMonth = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -72,6 +71,7 @@ public class MenuView extends javax.swing.JFrame {
         Cerrar = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -199,7 +199,15 @@ public class MenuView extends javax.swing.JFrame {
         Cerrar.add(jMenuItem2);
 
         jMenuItem10.setText("Cerrar");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         Cerrar.add(jMenuItem10);
+
+        jMenuItem1.setText("Venta");
+        Cerrar.add(jMenuItem1);
 
         jMenu2.add(Cerrar);
 
@@ -377,6 +385,10 @@ public class MenuView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "000013", "Denegado el acceso", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
      private void cargaProductosExpirados(){
         model.setNumRows(0);
         product.setCantidad(Integer.parseInt(jtMonth.getText()));
@@ -404,6 +416,7 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
