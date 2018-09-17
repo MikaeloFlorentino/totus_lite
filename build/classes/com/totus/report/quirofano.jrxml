@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0fbc02a7-4eca-4451-ab63-4294e6d156ba">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="QUIROFANO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAPERTURA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FCIERRE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NCLIENTE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NUSUARIO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORTES" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.id, p.clave, p.lote, p.price_final, p.bill, qp.vendido
+  FROM public.products p
+inner join quirofano_producto qp on p.id=qp.producto_id and qp.quirofano_id=$P!{QUIROFANO}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="lote" class="java.lang.String"/>
+	<field name="price_final" class="java.math.BigDecimal"/>
+	<field name="bill" class="java.lang.String"/>
+	<field name="vendido" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<image>
+				<reportElement x="397" y="0" width="155" height="64" uuid="25ed17e1-02b4-4ba4-8c2e-6fff370e0d91"/>
+				<imageExpression><![CDATA["/reportes/leaf_banner_gray.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="17" width="71" height="15" uuid="9c0607d2-195b-4bc4-b43e-e353fb43bf3b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUIROFANO: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="71" y="17" width="92" height="15" uuid="72d6e9aa-ae8f-4e70-8d8c-88d9a2b9e51d"/>
+				<textFieldExpression><![CDATA[$P{QUIROFANO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="71" y="32" width="92" height="15" uuid="b24ac269-0869-4b88-8198-35fb3a9782b8"/>
+				<textFieldExpression><![CDATA[$P{NUSUARIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="32" width="71" height="15" uuid="1b5ffba0-5c5b-4baf-b2d8-6d7ff34b3580"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="47" width="71" height="15" uuid="d13be920-487b-4e59-8b3d-793703aba4f4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="71" y="47" width="92" height="15" uuid="107dee66-75df-4772-af79-1827ff5ee55f"/>
+				<textFieldExpression><![CDATA[$P{NUSUARIO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="32" y="70" width="71" height="15" uuid="f36917ce-a026-4342-a760-d32b03812cdd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apertura]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="103" y="70" width="92" height="15" uuid="5c3c9a22-4030-4ccf-8fba-5c42c5a9f08c"/>
+				<textFieldExpression><![CDATA[$P{FAPERTURA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="339" y="70" width="92" height="15" uuid="1848d1e4-96d3-4fd5-8185-e303c2a77aae"/>
+				<textFieldExpression><![CDATA[$P{FCIERRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="268" y="70" width="71" height="15" uuid="2b779934-342d-4a74-9d71-6d59b785660d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cierre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="184" y="0" width="213" height="62" uuid="6dd323f7-b532-4d06-bd50-9a2b5a6dd2fe"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE QUIROFANO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="b61743ff-9a79-45fc-ba52-b5333ef2aabf"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="92" height="15" uuid="12d7e1e7-e9bf-4ecb-8e65-3ded8cae831a"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="92" y="19" width="92" height="15" uuid="beeed02a-4a02-44da-a99c-3fc9a8ad2416"/>
+				<text><![CDATA[clave]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="184" y="19" width="92" height="15" uuid="cea717d9-f636-4478-a505-10bfd2d82612"/>
+				<text><![CDATA[lote]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="92" height="15" uuid="53a076fb-e337-4925-8eb3-f2683c8d9771"/>
+				<text><![CDATA[price_final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="368" y="19" width="92" height="15" uuid="00ee23ab-b003-4b90-856e-55f094a396a7"/>
+				<text><![CDATA[bill]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="460" y="19" width="92" height="15" uuid="58a723f9-fd13-4a12-a035-2aa8d88b4886"/>
+				<text><![CDATA[vendido]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="7d2452cb-7811-4f48-8ae2-82d9a85934d9"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="c8ee34bc-fc9f-4bfe-b02a-a4b12ea77bd6"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="92" y="0" width="92" height="15" uuid="9c4ca352-c9e8-4ce6-9a1a-9ed481194dfc"/>
+				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="184" y="0" width="92" height="15" uuid="e374ff52-6050-44b9-9544-d71897ba2c7e"/>
+				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="b1ed40e5-0059-443f-91f0-0354017616c7"/>
+				<textFieldExpression><![CDATA[$F{price_final}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="6ee2a7ca-0a62-44b0-a3b6-577e837c846a"/>
+				<textFieldExpression><![CDATA[$F{bill}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="dbe76da6-9543-48e0-8f24-4ddf79e9dbca"/>
+				<textFieldExpression><![CDATA[$F{vendido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="4f7f7efd-3bff-4d55-968c-1ab648545f49"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<componentElement>
+				<reportElement x="217" y="4" width="122" height="41" uuid="be9c51de-f982-4307-af22-b3b86b053f86"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{QUIROFANO}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="4a86b4ec-6036-4ab6-bb7e-7983b8fdc7ca"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="37631da9-dd9b-4aa1-84b3-0047597fe03a"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="f44f535c-ae64-48af-b6aa-84e7b06acd1c"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

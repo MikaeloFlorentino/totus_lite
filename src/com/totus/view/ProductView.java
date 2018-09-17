@@ -15,9 +15,13 @@ import com.totus.model.Product;
 import com.totus.model.Provider;
 import com.totus.model.Status;
 import com.totus.report.Report;
+import com.totus.utilities.Impress;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.print.PrintException;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,7 +42,7 @@ public class ProductView extends View <Product> {
     StatusFinder statusFinder;
     Report reporte;
     Map parameters;
-    
+    Impress impress;
     public ProductView(java.awt.Frame parent, boolean modal) {
         super("Productos - Productos", 582, 421, parent, modal);
         initComponents();
@@ -54,6 +58,7 @@ public class ProductView extends View <Product> {
         salida=false;
         reporte = new Report();
         parameters = new HashMap();
+        impress = new Impress();
     }
 
     
@@ -429,12 +434,13 @@ public class ProductView extends View <Product> {
     }//GEN-LAST:event_JBBuscarActionPerformed
 
     private void JBCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCodigoActionPerformed
-        /*if(product.isExists()){
-            parameters = new HashMap();
-            parameters.put("IDENTIFICADOR", String.valueOf(product.getId()));
-        
-            reporte.getReport("barras", parameters);
-        }*/
+        if(product.isExists()){
+            try {
+                impress.impress(String.valueOf(product.getId()));
+            } catch (PrintException ex) {
+                Logger.getLogger(ProductView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
     }//GEN-LAST:event_JBCodigoActionPerformed
 
@@ -442,6 +448,13 @@ public class ProductView extends View <Product> {
         if(27 == evt.getKeyCode()){
             this.setVisible(false);
             salida = true;
+        }
+        if(10 == evt.getKeyCode()){
+            jTIdentificador.setText(jTIdentificador.getText().trim());
+            if((0 != jTIdentificador.getText().compareTo(""))&& (!salida)){
+                busca();
+                jTIdentificador.nextFocus();
+            }
         }
     }//GEN-LAST:event_jTIdentificadorKeyPressed
 
