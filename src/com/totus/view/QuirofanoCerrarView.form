@@ -60,7 +60,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="JBCancelar" min="-2" pref="103" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="JBAbrir" max="32767" attributes="0"/>
+                              <Component id="JBCerrar" max="32767" attributes="0"/>
                           </Group>
                           <Component id="JBPDevolver" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -93,14 +93,9 @@
                                   <Component id="JTUNombre" pref="267" max="32767" attributes="0"/>
                                   <Component id="jTCliente" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="JBUsuario" pref="111" max="32767" attributes="0"/>
-                                  <Component id="JBCBuscar" max="32767" attributes="0"/>
-                              </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="129" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -121,14 +116,12 @@
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JTUid" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JTUNombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JBUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="JTCId" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jTCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="JBCBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -165,7 +158,7 @@
                   <Component id="jChAbierto" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                       <Component id="JBCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="JBAbrir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="JBCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="JBImprimir" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -175,12 +168,12 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="JBAbrir">
+    <Component class="javax.swing.JButton" name="JBCerrar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cerrar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBAbrirActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBCerrarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="JBCancelar">
@@ -205,7 +198,7 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="JTUid"/>
+          <ComponentRef name="JTPId"/>
         </Property>
       </Properties>
       <Events>
@@ -220,29 +213,12 @@
     <Component class="javax.swing.JTextField" name="JTUid">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="JBUsuario"/>
-        </Property>
       </Properties>
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="JTUidFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="JTUNombre">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="JBUsuario">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="JTCId"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBUsuarioActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
@@ -332,7 +308,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Productos \u005cna\u005cndevolver a \u005cinventario" containsInvalidXMLChars="true"/>
+        <Property name="text" type="java.lang.String" value="Productos"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="jChAbierto">
@@ -357,29 +333,12 @@
     <Component class="javax.swing.JTextField" name="JTCId">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="JBCBuscar"/>
-        </Property>
       </Properties>
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="JTCIdFocusLost"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTCliente">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="JBCBuscar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Buscar"/>
-        <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="JTPId"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JBCBuscarActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

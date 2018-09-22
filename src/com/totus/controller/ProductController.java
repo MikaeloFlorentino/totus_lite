@@ -8,9 +8,12 @@ package com.totus.controller;
 import com.totus.model.Status;
 import com.totus.model.Product;
 import com.totus.model.Provider;
+import com.totus.model.QuirofanoProducto;
 import com.totus.table.ProductTab;
 import com.totus.table.ProviderTab;
 import com.totus.table.StatusTab;
+import com.totus.table.QuirofanoProductoTab;
+import com.totus.utilities.Constant;
 import com.totus.utilities.Utilies;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,7 +40,9 @@ public class ProductController extends Controller<Product> {
                
             );
         
-        instance.setCondicional(" WHERE "+productTab.getExpiration_date()+" <=current_date + '"+instance.getCantidad()+" months':: interval");
+        instance.setCondicional(" WHERE "+productTab.getExpiration_date()+" <=current_date + '"+instance.getCantidad()+" months':: interval" +
+            " and " + productTab.getStatus_id() +" = " + Constant.STATUS_ACTIVO
+            );
         
             
         
@@ -109,7 +114,7 @@ public class ProductController extends Controller<Product> {
                         product.setCantidad(result.getInt(10));
                         product.setFactura(result.getString(11));
                         product.getProvider().setNombre(result.getString(12));
-                        product.getStatus().setDescription(result.getString(12));
+                        product.getStatus().setDescription(result.getString(13));
                         product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         
                     }
@@ -292,10 +297,147 @@ public class ProductController extends Controller<Product> {
         return listProduct;
     }
 
-    public void actualizaEstatus(List<Product> listProduct) {
+    /**
+     * Actualiza producto por producto segun el id enviado
+     * @param listProduct
+     * @param statusId 
+     */
+    public void actualizaEstatus(List<Product> listProduct, int statusId) {
         for(Product p : listProduct){
-            p.setStatus(new Status(3));
+            p.setStatus(new Status(statusId));
             this.actualizaEstatus(p);
+        }
+    }
+
+    public List<Product> getListByNameStatus(Product instance, int statusId) {
+        List<Product> listProduct = new ArrayList<>();
+        ProductTab productTab = new ProductTab();
+        Product product = new Product();
+        instance.setCampos(
+                productTab.getId()+", "+
+                productTab.getDescription()+", "+
+                productTab.getBill()
+               
+            );
+        if(null != instance.getDescripcion()){
+            if(instance.getDescripcion().trim().length()>0){
+                instance.setCondicional(" WHERE "+productTab.getDescription()+" like '%"+instance.getDescripcion()+"%'" +
+                        " and " + productTab.getStatus_id()+" = "+ statusId
+                    );
+            }else{
+                instance.setCondicional(" WHERE "+productTab.getStatus_id()+" = "+ statusId);
+            }
+        }else{
+            instance.setCondicional(" WHERE "+productTab.getStatus_id()+" = "+ statusId);
+        }
+            
+        
+        
+        ResultSet result=null;
+        try {
+            result = super.select(instance);
+            if(result != null){
+                try {
+                    while (result .next()){
+                        product = new Product();
+                        product.setId(result.getInt(1) );
+                        product.setDescripcion(result.getString(2) );
+                        product.setFactura(result.getString(3));
+                        product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
+                        listProduct.add(product);
+                    }
+                } catch (SQLException ex) {
+                    //instance.setError(new Error("000003", ex.getMessage()));
+                }
+            }
+        } catch (SQLException ex) {
+            //instance.setError(new Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            //instance.setError(new Error("000001", ex.getMessage()));
+        }
+        return listProduct;
+    }
+
+    public List<Product> getListByQuirofano(Product instance, int statusId, int quirofanoId) {
+        List<Product> listProduct = new ArrayList<>();
+        ProductTab productTab = new ProductTab();
+        QuirofanoProductoTab quirofanoProductoTab = new QuirofanoProductoTab();
+        Product product = new Product();
+        instance.setCampos(
+                "p."+productTab.getId()+", "+
+                "p."+productTab.getDescription()+", "+
+                "p."+productTab.getBill()
+               
+            );
+        if(null != instance.getDescripcion()){
+            if(instance.getDescripcion().trim().length()>0){
+                instance.setCondicional(" p inner join quirofano_producto qp on "+
+                        "p."+productTab.getId()+"=qp."+quirofanoProductoTab.getProducto_id() +" and "+
+                        "qp."+ quirofanoProductoTab.getQuirofano_id() +"="+quirofanoId +
+                        " WHERE " +productTab.getDescription()+" like '%"+instance.getDescripcion()+"%'" +
+                        " and "+ productTab.getStatus_id()+" = "+ statusId
+                    );
+            }else{
+                instance.setCondicional(" p inner join quirofano_producto qp on "+
+                        "p."+productTab.getId()+"=qp."+quirofanoProductoTab.getProducto_id() +" and "+
+                        "qp."+ quirofanoProductoTab.getQuirofano_id() +"="+quirofanoId +
+                        " WHERE " +productTab.getStatus_id()+" = "+ statusId
+                    );
+            }
+        }else{
+            instance.setCondicional(" p inner join quirofano_producto qp on "+
+                    "p."+productTab.getId()+"=qp."+quirofanoProductoTab.getProducto_id() +" and "+
+                    "qp."+ quirofanoProductoTab.getQuirofano_id() +"="+quirofanoId +
+                    " WHERE " +productTab.getStatus_id()+" = "+ statusId
+                );
+        }
+            
+        
+        
+        ResultSet result=null;
+        try {
+            result = super.select(instance);
+            if(result != null){
+                try {
+                    while (result .next()){
+                        product = new Product();
+                        product.setId(result.getInt(1) );
+                        product.setDescripcion(result.getString(2) );
+                        product.setFactura(result.getString(3));
+                        product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
+                        listProduct.add(product);
+                    }
+                } catch (SQLException ex) {
+                    //instance.setError(new Error("000003", ex.getMessage()));
+                }
+            }
+        } catch (SQLException ex) {
+            //instance.setError(new Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            //instance.setError(new Error("000001", ex.getMessage()));
+        }
+        return listProduct;
+    }
+
+    public void actualizaQuirofanoVenta(QuirofanoProducto quirofanoProducto, int instatusId) {
+        Product instance = new Product();
+        
+        QuirofanoProductoTab quirofanoProductoTab = new QuirofanoProductoTab();
+        ProductTab productTab = new ProductTab();
+        instance.setCampos(
+                productTab.getStatus_id()+" = " + instatusId 
+            );
+        instance.setCondicional("FROM public.quirofano_producto WHERE "+
+                " products."+productTab.getId() + " = quirofano_producto." + quirofanoProductoTab.getProducto_id() +
+                " and quirofano_producto." +quirofanoProductoTab.getQuirofano_id()+"= "+ quirofanoProducto.getQuirofano().getId() );
+        
+        try {
+            super.update(instance);
+            instance.setError(new com.totus.model.Error("000000", "Producto Actualizado"));
+        } catch (SQLException ex) {
+            instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
         }
     }
 }

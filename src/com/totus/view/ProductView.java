@@ -422,7 +422,7 @@ public class ProductView extends View <Product> {
         if((0 != jTIdentificador.getText().compareTo(""))&& (!salida)){
             busca();
         }else{
-            productFinder.abre();
+            productFinder.abre(0);
             if(productFinder.getSelect()!=0){
                 jTIdentificador.setText(String.valueOf(productFinder.getSelect()));
                 busca();
@@ -438,7 +438,7 @@ public class ProductView extends View <Product> {
             try {
                 impress.impress(String.valueOf(product.getId()));
             } catch (PrintException ex) {
-                Logger.getLogger(ProductView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "No se encontro impresora", "Error",JOptionPane.ERROR_MESSAGE);
             }
         }
         

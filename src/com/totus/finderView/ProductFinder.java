@@ -19,6 +19,8 @@ public class ProductFinder  extends View <Product> {
     DefaultTableModel model;
     private int select;
     List<Product> listProduct;
+    private int statusId;
+    private int quirofanoId;
     /**
      * Creates new form ProviderFinder
      */
@@ -31,6 +33,8 @@ public class ProductFinder  extends View <Product> {
         select = 0;
         model.setNumRows(0);
         listProduct = null;
+        statusId=0;
+        quirofanoId=0;
     }
 
     
@@ -38,11 +42,23 @@ public class ProductFinder  extends View <Product> {
         return select;
     }
     
-    public void abre(){
+    public void abre(int statusId){
         select = 0;
         model.setNumRows(0);
         listProduct = null;
+        this.statusId = statusId;
         this.setVisible(true);
+        
+    }
+    
+    public void abre(int statusId, int quirofanoId){
+        select = 0;
+        model.setNumRows(0);
+        listProduct = null;
+        this.statusId = statusId;
+        this.quirofanoId = quirofanoId;
+        this.setVisible(true);
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -152,7 +168,16 @@ public class ProductFinder  extends View <Product> {
     private void jBFBuscarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBFBuscarPActionPerformed
         model.setNumRows(0);
         product.setDescripcion(jTFNombre.getText());
-        listProduct = productController.getListByName(product);
+        if(0 != statusId){
+            if(0 == quirofanoId){
+                listProduct = productController.getListByNameStatus(product, statusId);
+            }else{
+                listProduct = productController.getListByQuirofano(product, statusId, quirofanoId);
+                
+            }
+        }else{
+            listProduct = productController.getListByName(product);
+        }
         if(listProduct.size()>0){
             for(Product p: listProduct){
                 model.addRow(new Object[]{p.getId(), p.getDescripcion(), p.getFactura()});

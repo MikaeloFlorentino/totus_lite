@@ -11,6 +11,7 @@ import com.totus.table.ClientTab;
 import com.totus.table.QuirofanoProductoTab;
 import com.totus.table.QuirofanoTab;
 import com.totus.table.UserTab;
+import com.totus.utilities.Constant;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,6 +61,62 @@ public class QuirofanoProductoController extends Controller<QuirofanoProducto> {
         return instance;
     }
 
+    /**
+     * Actualiza todo el quirofano, los productos los pone como vendidos o no_vendidos
+     * @param instance
+     * @param vendido 
+     */
+    public void actualizaQuirofanoVenta(QuirofanoProducto instance, boolean vendido){
+        QuirofanoProductoTab quirofanoProductoTab = new QuirofanoProductoTab();
+        instance.setCampos(
+                quirofanoProductoTab.getVendido()+" = " + vendido 
+            );
+        instance.setCondicional(" WHERE "+quirofanoProductoTab.getQuirofano_id()+"="+instance.getQuirofano().getId() );
+        
+        try {
+            super.update(instance);
+            instance.setError(new com.totus.model.Error("000000", "Quierofano Cerrado"));
+        } catch (SQLException ex) {
+            instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
+        }
+        
+    }
+    
+    /**
+     * Actualiza por quirofano y prodcuto, vndido o no_vendido
+     * @param instance
+     * @param vendido
+     * @return 
+     */
+     public QuirofanoProducto actualizaVenta(QuirofanoProducto instance,  boolean vendido){
+        QuirofanoProductoTab quirofanoProductoTab = new QuirofanoProductoTab();
+        instance.setCampos(
+                quirofanoProductoTab.getVendido()+" = " + vendido 
+            );
+        instance.setCondicional(" WHERE "+quirofanoProductoTab.getQuirofano_id()+"="+instance.getQuirofano().getId() +
+                " and " + quirofanoProductoTab.getProducto_id()+"="+instance.getProduct().getId()
+            );
+            
+        
+        try {
+            instance = super.update(instance);
+            instance.setError(new com.totus.model.Error("000000", "Quierofano Cerrado"));
+        } catch (SQLException ex) {
+            instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
+        }
+        
+        return instance;
+    }
+    
+    /**
+     * Registra cada producto ligado al quirofano, todo esta como no vendido
+     * @param quirofano
+     * @param listProduct 
+     */
     public void abrir(Quirofano quirofano, List<Product> listProduct) {
         QuirofanoProducto quirofanoProducto = new QuirofanoProducto();
         for(Product p : listProduct){
@@ -69,7 +126,29 @@ public class QuirofanoProductoController extends Controller<QuirofanoProducto> {
             this.save(quirofanoProducto);
         }
     }
+    
+    /**
+     * Actualiza todo el quirofano como vendido y luego cada producto en la lista lo manda como no vendido
+     * @param quirofano
+     * @param listProduct 
+     */
+    public void cerrar(Quirofano quirofano, List<Product> listProduct) {
+        QuirofanoProducto quirofanoProducto = new QuirofanoProducto();
+        quirofanoProducto.setQuirofano(quirofano);
+        this.actualizaQuirofanoVenta(quirofanoProducto, Constant.VENDIDO);
+        
+        for(Product p : listProduct){
+            quirofanoProducto = new QuirofanoProducto();
+            quirofanoProducto.setQuirofano(quirofano);
+            quirofanoProducto.setProduct(p);
+            this.actualizaVenta(quirofanoProducto, Constant.NO_VENDIDO);
+        }
+        
+    }
 
+    /**
+     * 
+     */
     public List<QuirofanoProducto> getListByQuirofano(QuirofanoProducto instance) {
         List<QuirofanoProducto> listQuirofanoProducto = new ArrayList<>();
         QuirofanoProductoTab quirofanoProductoTab = new QuirofanoProductoTab();
@@ -80,6 +159,50 @@ public class QuirofanoProductoController extends Controller<QuirofanoProducto> {
                 quirofanoProductoTab.getVendido()
             );
         instance.setCondicional(" WHERE " +quirofanoProductoTab.getQuirofano_id() +" = "+instance.getQuirofano().getId());
+        
+        ResultSet result=null;
+        try {
+            result = super.select(instance);
+            if(result != null){
+                try {
+                    Integer a = null;
+                    while (result .next()){
+                        quirofanoProducto = new QuirofanoProducto();
+                        quirofanoProducto.setExists(true);
+
+                        quirofanoProducto.setQuirofano(new Quirofano(result.getInt(1) ));
+                        quirofanoProducto.setProduct(new Product(result.getInt(2)) );
+                        quirofanoProducto.setVendido(result.getBoolean(3) );
+                        
+                        
+                        
+                        quirofanoProducto.setError(new com.totus.model.Error("000000", "Lista encontrada"));
+                        listQuirofanoProducto.add(quirofanoProducto);
+                    }
+                } catch (SQLException ex) {
+                    instance.setError(new com.totus.model.Error("000003", ex.getMessage()));
+                }
+            }
+        } catch (SQLException ex) {
+            instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
+        }
+        return listQuirofanoProducto;
+    }
+
+     public List<QuirofanoProducto> getListByQuirofanoVendido(QuirofanoProducto instance, boolean vendido) {
+        List<QuirofanoProducto> listQuirofanoProducto = new ArrayList<>();
+        QuirofanoProductoTab quirofanoProductoTab = new QuirofanoProductoTab();
+        QuirofanoProducto quirofanoProducto = new QuirofanoProducto();
+        instance.setCampos(
+                quirofanoProductoTab.getQuirofano_id()+", "+
+                quirofanoProductoTab.getProducto_id()+", "+
+                quirofanoProductoTab.getVendido()
+            );
+        instance.setCondicional(" WHERE " +quirofanoProductoTab.getQuirofano_id() +" = "+instance.getQuirofano().getId() +
+            " and " +     quirofanoProductoTab.getVendido()+" = "+ vendido
+            );
         
         ResultSet result=null;
         try {

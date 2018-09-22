@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6d378deb-dddf-49e0-a892-c8db6261ff2c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="QUIROFANO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FAPERTURA" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FCIERRE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NCLIENTE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="NUSUARIO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORTES" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.id, p.description, p.clave, p.lote, p.bill, case  when vendido then 'Vendido' else 'Regreso' end  as vendido
+  FROM public.products p
+inner join quirofano_producto qp on p.id=qp.producto_id and qp.quirofano_id=$P!{QUIROFANO}
+order by qp.vendido desc, p.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="lote" class="java.lang.String"/>
+	<field name="bill" class="java.lang.String"/>
+	<field name="vendido" class="java.lang.String"/>
+	<group name="vendido">
+		<groupExpression><![CDATA[$F{vendido}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#000000" uuid="f317dae7-7b84-4bd6-adc2-3abb5f7e186d"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{vendido}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC" uuid="f2e433b1-f1a8-4d41-912e-0e8f01a838ba"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="88" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="70" width="71" height="15" uuid="c5aee697-ae76-4ec3-9f75-8a35ce5decde"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apertura]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="340" y="70" width="160" height="15" uuid="44fd8fdc-1b25-4c48-bd39-32fc0e46ba79"/>
+				<textFieldExpression><![CDATA[$P{FCIERRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="269" y="70" width="71" height="15" uuid="7a1b3f46-bbd8-4c3c-a430-32fc82af933d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cierre]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Detail" x="72" y="47" width="197" height="15" uuid="34916cf5-cced-45bc-9366-07961840fb6c"/>
+				<textFieldExpression><![CDATA[$P{NUSUARIO}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="398" y="0" width="155" height="64" uuid="11986466-239a-4952-b114-30fc3d450bbe"/>
+				<imageExpression><![CDATA["/reportes/leaf_banner_gray.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="Detail" x="104" y="70" width="165" height="15" uuid="71be37ef-55f2-4bee-9140-c014cd28441e"/>
+				<textFieldExpression><![CDATA[$P{FAPERTURA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="72" y="32" width="197" height="15" uuid="a72dfab9-aaba-48fd-9b40-6b5dddf75176"/>
+				<textFieldExpression><![CDATA[$P{NUSUARIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="72" y="17" width="92" height="15" uuid="6d1a4f8d-c454-4ac0-8773-4d940026644d"/>
+				<textFieldExpression><![CDATA[$P{QUIROFANO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="32" width="71" height="15" uuid="33268ee8-0035-4a7a-a94b-5070e5286bc2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="213" height="32" uuid="dc28e157-404c-4187-b5df-1bb022b1958d"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CIERRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="17" width="71" height="15" uuid="62788bcb-317e-4feb-8a15-7ae92283025a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUIROFANO: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="47" width="71" height="15" uuid="42643568-6ead-4afc-99d0-e5d27302cb5f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="d607951d-97cf-48b6-aa16-19dcc619ddf9"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="111" height="15" uuid="74726760-d038-4276-a265-d1805ae6ed1a"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="111" y="19" width="111" height="15" uuid="271f4d67-1f3e-4c54-b3e5-2067bc6df0e8"/>
+				<text><![CDATA[description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="222" y="19" width="111" height="15" uuid="5cec5c3b-34af-4d86-bc5d-d6119b650d93"/>
+				<text><![CDATA[clave]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="333" y="19" width="111" height="15" uuid="c791fb16-7388-4022-a775-d4b052e95e9e"/>
+				<text><![CDATA[lote]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="444" y="19" width="111" height="15" uuid="f857dda1-9acc-4d37-a677-5bc34ec1d650"/>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="761a05e7-d0b6-48bd-b356-023bf17a0b7b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="111" height="15" uuid="d60a60a1-e83b-4f45-ae42-d2aea0d8b745"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="111" y="0" width="111" height="15" uuid="18adf771-6e10-425c-9145-4b41e9e358c3"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="222" y="0" width="111" height="15" uuid="ad84794d-62b4-439e-b3dc-dd5b44c07077"/>
+				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="333" y="0" width="111" height="15" uuid="9ba745c4-3628-4d8e-b592-ad9c398289b9"/>
+				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="444" y="0" width="111" height="15" uuid="4b654624-a30a-460f-bfb0-15670323e3e6"/>
+				<textFieldExpression><![CDATA[$F{bill}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="52" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="4ae87fd3-ac4b-48e1-b668-4919e62b04cf"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<componentElement>
+				<reportElement x="222" y="11" width="122" height="41" uuid="1d60b163-1ca0-4601-b435-6a9826a339a3"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="2of7" drawText="true" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$P{QUIROFANO}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="e938e41a-472d-415f-8d0d-e9f58faa0f2d"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="422b8974-7d74-4d47-b4bb-fe0a21fd9b3f"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="f1407281-d5b0-45a3-91a0-db38264c4091"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

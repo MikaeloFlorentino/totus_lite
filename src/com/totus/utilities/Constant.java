@@ -45,6 +45,18 @@ public class Constant {
     final public static String QUIROFANO_PRODUCTO = "quirofano_producto";
 
     final public static String URL_USER_AUTENTICATE = "authenticate";
+ 
+    
+    final public static String REPORT_ABRIR = "abrir";
+    final public static String REPORT_CERRAR = "cerrar";
+    
+    final public static int STATUS_ACTIVO = 1;
+    final public static int STATUS_QUIROFANO = 3;
+    final public static int STATUS_VENDIDO = 4;
+    
+    
+    final public static boolean VENDIDO=true;
+    final public static boolean NO_VENDIDO=false;
     
     public static User user;
 }

@@ -15,11 +15,14 @@ import com.totus.model.Quirofano;
 import com.totus.model.QuirofanoProducto;
 import com.totus.model.User;
 import com.totus.report.Report;
+import com.totus.utilities.Constant;
 import com.totus.utilities.Utilies;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,6 +36,7 @@ public class QuirofanoAbrirView extends View <Quirofano> {
     private boolean key;
     private int agrega;
     DefaultTableModel model;
+    
     
     private Client client;
     private Quirofano quirofano;
@@ -453,7 +457,7 @@ public class QuirofanoAbrirView extends View <Quirofano> {
     }//GEN-LAST:event_JTPIdKeyPressed
 
     private void JBPBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBPBuscarActionPerformed
-        productFinder.abre();
+        productFinder.abre(Constant.STATUS_ACTIVO);
         if(productFinder.getSelect()!=0){
             JTPId.setText(String.valueOf(productFinder.getSelect()));
             buscaProduct();
@@ -464,8 +468,12 @@ public class QuirofanoAbrirView extends View <Quirofano> {
 
     private void JBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAgregarActionPerformed
         if(product.isExists()){
-            //model.addRow(new Object[]{ product.getId(), product.getLote(), product.getClave(), product.getDescripcion() });
-            agregaTabla();
+            try {
+                //model.addRow(new Object[]{ product.getId(), product.getLote(), product.getClave(), product.getDescripcion() });
+                agregaTabla();
+            } catch (Exception ex) {
+               JOptionPane.showMessageDialog(this, ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_JBAgregarActionPerformed
 
@@ -478,22 +486,21 @@ public class QuirofanoAbrirView extends View <Quirofano> {
     }//GEN-LAST:event_JBEliminarActionPerformed
 
     private void JBAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAbrirActionPerformed
-        if(0 == model.getRowCount()){
-            JOptionPane.showMessageDialog(this, "No hay productos asignados", "Error",JOptionPane.ERROR_MESSAGE);
+        if(quirofano.isExists()){
+            JOptionPane.showMessageDialog(this, "El quirofano ya esta abirto", "Error",JOptionPane.ERROR_MESSAGE);
+
         }else{
-            if(quirofano.isExists()){
-                JOptionPane.showMessageDialog(this, "El quirofano ya esta abirto", "Error",JOptionPane.ERROR_MESSAGE);
-                
-            }else{
+            try {
                 laodData();
-                
                 agrega = JOptionPane.showConfirmDialog(this, "Deseas abrir quirofano", "Abrir", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
                 if( 0 == agrega ){    
                     quirofano = quirofanoController.abrir(quirofano);
                     quirofanoProductoController.abrir(quirofano, listProduct);
-                    productController.actualizaEstatus(listProduct);
+                    productController.actualizaEstatus(listProduct, Constant.STATUS_QUIROFANO);
                     validaData();
                 }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_JBAbrirActionPerformed
@@ -514,8 +521,8 @@ public class QuirofanoAbrirView extends View <Quirofano> {
                 parameters.put("FCIERRE", "");
             parameters.put("NCLIENTE", client.getNombre());
             parameters.put("NUSUARIO", user.getName());
-            report.getReport("quirofano", parameters);
-            this.setVisible(false);
+            report.getReport(Constant.REPORT_ABRIR, parameters);
+            //this.setVisible(false);
         }
     }//GEN-LAST:event_JBImprimirActionPerformed
 
@@ -578,7 +585,12 @@ public class QuirofanoAbrirView extends View <Quirofano> {
         }
     }
     
-    private void agregaTabla(){
+    private void agregaTabla() throws Exception {
+        for(int i = 0; i<model.getRowCount(); i++){
+            if(product.getId() == (int) model.getValueAt(i, 0)){
+                throw new Exception("Ya esta agregado ese producto");
+            }
+        }
         model.addRow(new Object[]{ product.getId(), product.getLote(), product.getClave(), product.getDescripcion() });
         product = new Product();
         JTPId.setText("");
@@ -590,10 +602,24 @@ public class QuirofanoAbrirView extends View <Quirofano> {
             product = productController.getProductById(product);
             if(product.isExists()){
                 JTPNombre.setText(product.getDescripcion());
-                agrega = JOptionPane.showConfirmDialog(this, "Deseas agregar este item", "Encontrado", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
-                if( 0 == agrega ){    
-                    //model.addRow(new Object[]{ product.getId(), product.getLote(), product.getClave(), product.getDescripcion() });
-                    agregaTabla();
+                if(Constant.STATUS_ACTIVO == product.getStatus().getId()){
+                    
+                    agrega = JOptionPane.showConfirmDialog(this, "Deseas agregar este item", "Encontrado", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
+                    if( 0 == agrega ){    
+                        //model.addRow(new Object[]{ product.getId(), product.getLote(), product.getClave(), product.getDescripcion() });
+                        try {
+                            //model.addRow(new Object[]{ product.getId(), product.getLote(), product.getClave(), product.getDescripcion() });
+                            agregaTabla();
+                        } catch (Exception ex) {
+                           JOptionPane.showMessageDialog(this, ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "El producto no esta activo\n"+product.getStatus().getId(), "Error", JOptionPane.ERROR_MESSAGE);
+                    product = new Product();
+                    JTPId.setText("");
+                    JTPNombre.setText("");
+                    
                 }
                 
             }else{
@@ -606,13 +632,14 @@ public class QuirofanoAbrirView extends View <Quirofano> {
     }
     
     private void validaData(){
-        if(0 == product.getError().getStatus().compareTo("000000")){
+        if(0 == quirofano.getError().getStatus().compareTo("000000")){
             JOptionPane.showMessageDialog(this, quirofano.getError().getDetail()+"\n"+ quirofano.getId(), "Correcto", JOptionPane.INFORMATION_MESSAGE);
-            product = new Product();
-            
+            quirofano = new Quirofano();
+            quirofano.setUser(new User());
+            quirofano.setClient(new Client());
             downlaodData();                    
         }else{
-            JOptionPane.showMessageDialog(this, product.getError().getStatus()+"\n"+product.getError().getDetail(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, quirofano.getError().getStatus()+"\n"+quirofano.getError().getDetail(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -640,14 +667,22 @@ public class QuirofanoAbrirView extends View <Quirofano> {
     }
     
     
-    private void laodData(){
+    private void laodData() throws Exception {
         if(user.isExists()){
             quirofano.setUser(user);
+        }else{
+            
+            throw new Exception("No existe usuario");
         }
         if(client.isExists()){
             quirofano.setClient(client);
+        }else{
+            
+            throw new Exception("No existe Cliente");
         }
-        
+        if(0 == model.getRowCount()){
+            throw new Exception("No hay productos");
+        }
         for(int i = 0; i<model.getRowCount(); i++){
             product = new Product((int) model.getValueAt(i, 0));
             listProduct.add(product);

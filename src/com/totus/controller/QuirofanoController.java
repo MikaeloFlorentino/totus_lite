@@ -273,14 +273,14 @@ public class QuirofanoController extends Controller<Quirofano> {
     public Quirofano cerrar(Quirofano instance) {
         QuirofanoTab quirofanoTab = new QuirofanoTab();
         instance.setCampos(
-                quirofanoTab.getAbierto()+" = " + true + ", "+
+                quirofanoTab.getAbierto()+" = " + false + ", "+
                 quirofanoTab.getFecha_cierre()+" = '" + new Utilies().getToday()+ "'"
             );
         instance.setCondicional(" WHERE id="+instance.getId());
         
         try {
             instance = super.update(instance);
-            instance.setError(new com.totus.model.Error("000000", "Usuario Actualizado"));
+            instance.setError(new com.totus.model.Error("000000", "Quierofano Cerrado"));
         } catch (SQLException ex) {
             instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
         } catch (ClassNotFoundException ex) {

@@ -24,7 +24,8 @@ public class MenuView extends javax.swing.JFrame {
     //Provider7_2View providerView = new Provider_2View();
     ProviderView providerView = new ProviderView(this, true);
     //NewJFrame providerView = new NewJFrame();
-    QuirofanoAbrirView  quirofanoAbrirView= new QuirofanoAbrirView(this, true);
+    QuirofanoAbrirView  quirofanoAbrirView= new QuirofanoAbrirView(this, false);
+    QuirofanoCerrarView  quirofanoCerrarView= new QuirofanoCerrarView(this, false);
     
     ProductView productView = new ProductView(this, true);
     
@@ -370,7 +371,7 @@ public class MenuView extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         
         if(!quirofanoAbrirView.isVisible()){
-            quirofanoAbrirView = new QuirofanoAbrirView(this, true);
+            quirofanoAbrirView = new QuirofanoAbrirView(this, false);
             quirofanoAbrirView.setVisible(true);
         }else{
             quirofanoAbrirView.toFront();
@@ -386,7 +387,12 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
+        if(!quirofanoCerrarView.isVisible()){
+            quirofanoCerrarView = new QuirofanoCerrarView(this, false);
+            quirofanoCerrarView.setVisible(true);
+        }else{
+            quirofanoCerrarView.toFront();
+        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
      private void cargaProductosExpirados(){
@@ -397,9 +403,7 @@ public class MenuView extends javax.swing.JFrame {
             for(Product p: listProduct){
                 model.addRow(new Object[]{p.getId(), p.getFechaExpiracion()});
             }
-            
-        }else{
-            JOptionPane.showMessageDialog(this, "No se encontraron datos", "Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se ecnontraron productos por caducar", "Alerta",JOptionPane.WARNING_MESSAGE);
         }
     }
 
