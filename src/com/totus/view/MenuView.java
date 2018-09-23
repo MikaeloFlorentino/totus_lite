@@ -26,7 +26,7 @@ public class MenuView extends javax.swing.JFrame {
     //NewJFrame providerView = new NewJFrame();
     QuirofanoAbrirView  quirofanoAbrirView= new QuirofanoAbrirView(this, false);
     QuirofanoCerrarView  quirofanoCerrarView= new QuirofanoCerrarView(this, false);
-    
+    QuirofanoVentaView quirofanoVentaView = new QuirofanoVentaView(this, false);
     ProductView productView = new ProductView(this, true);
     
     ProductController productController;
@@ -71,14 +71,12 @@ public class MenuView extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         Cerrar = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        JMIAbrir = new javax.swing.JMenuItem();
+        JMIVenta = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -190,6 +188,11 @@ public class MenuView extends javax.swing.JFrame {
         jMenu2.add(jMenuItem3);
 
         Cerrar.setText("Quirofano");
+        Cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CerrarActionPerformed(evt);
+            }
+        });
 
         jMenuItem2.setText("Abrir");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -199,16 +202,21 @@ public class MenuView extends javax.swing.JFrame {
         });
         Cerrar.add(jMenuItem2);
 
-        jMenuItem10.setText("Cerrar");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        JMIAbrir.setText("Cerrar");
+        JMIAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                JMIAbrirActionPerformed(evt);
             }
         });
-        Cerrar.add(jMenuItem10);
+        Cerrar.add(JMIAbrir);
 
-        jMenuItem1.setText("Venta");
-        Cerrar.add(jMenuItem1);
+        JMIVenta.setText("Venta");
+        JMIVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JMIVentaActionPerformed(evt);
+            }
+        });
+        Cerrar.add(JMIVenta);
 
         jMenu2.add(Cerrar);
 
@@ -232,29 +240,8 @@ public class MenuView extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem6);
 
-        jMenuItem7.setText("Devueltos");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem7);
-
         jMenuItem8.setText("Inventario Producto");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
         jMenu3.add(jMenuItem8);
-
-        jMenuItem9.setText("Mas Vendidos");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItem9);
 
         jMenuBar.add(jMenu3);
 
@@ -351,10 +338,6 @@ public class MenuView extends javax.swing.JFrame {
         report.getReport("reporte3");
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        JOptionPane.showMessageDialog(this, "000013", "Denegado el acceso", JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         if(!productView.isVisible()){
             productView = new ProductView(this, true);
@@ -378,22 +361,28 @@ public class MenuView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        JOptionPane.showMessageDialog(this, "000013", "Denegado el acceso", JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        JOptionPane.showMessageDialog(this, "000013", "Denegado el acceso", JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
-
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void JMIAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIAbrirActionPerformed
         if(!quirofanoCerrarView.isVisible()){
             quirofanoCerrarView = new QuirofanoCerrarView(this, false);
             quirofanoCerrarView.setVisible(true);
         }else{
             quirofanoCerrarView.toFront();
         }
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    }//GEN-LAST:event_JMIAbrirActionPerformed
+
+    private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
+        
+       
+    }//GEN-LAST:event_CerrarActionPerformed
+
+    private void JMIVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIVentaActionPerformed
+         if(!quirofanoVentaView.isVisible()){
+            quirofanoVentaView = new QuirofanoVentaView(this, false);
+            quirofanoVentaView.setVisible(true);
+        }else{
+            quirofanoVentaView.toFront();
+        }
+    }//GEN-LAST:event_JMIVentaActionPerformed
 
      private void cargaProductosExpirados(){
         model.setNumRows(0);
@@ -410,6 +399,8 @@ public class MenuView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu Cerrar;
     private javax.swing.JButton JBAcutaliza;
+    private javax.swing.JMenuItem JMIAbrir;
+    private javax.swing.JMenuItem JMIVenta;
     private javax.swing.JTable JTProductExpiration;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMCClients;
@@ -420,17 +411,13 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jtMonth;

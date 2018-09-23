@@ -17,6 +17,7 @@ import com.totus.model.User;
 import com.totus.report.Report;
 import com.totus.utilities.Constant;
 import com.totus.utilities.Utilies;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,6 @@ import javax.swing.table.DefaultTableModel;
 public class QuirofanoVentaView extends View <Quirofano> {
 
     private boolean salida;
-    private boolean key;
     private int agrega;
     DefaultTableModel model;
     
@@ -61,7 +61,6 @@ public class QuirofanoVentaView extends View <Quirofano> {
         initComponents();
         salida = false;
         agrega = 1;
-        key=false;
         model =  (DefaultTableModel) jTProductos.getModel();
         
         client = new Client();
@@ -175,9 +174,9 @@ public class QuirofanoVentaView extends View <Quirofano> {
         });
         jScrollPane1.setViewportView(jTProductos);
 
-        jLabel6.setText("Productos");
+        jLabel6.setText("Lista de Productos vendidos");
 
-        jChAbierto.setText("Abierto");
+        jChAbierto.setText("Vendido");
         jChAbierto.setEnabled(false);
 
         JBImprimir.setText("Imprimir");
@@ -201,14 +200,13 @@ public class QuirofanoVentaView extends View <Quirofano> {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(jChAbierto)
                         .addGap(18, 18, 18)
-                        .addComponent(jDFechaApertura, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(JBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jDFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 55, Short.MAX_VALUE))
+                        .addComponent(JBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(JBCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -227,23 +225,20 @@ public class QuirofanoVentaView extends View <Quirofano> {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(JTUNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
-                                    .addComponent(jTCliente))))
-                        .addGap(0, 129, Short.MAX_VALUE))
+                                    .addComponent(jTCliente)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jChAbierto)
+                                .addComponent(jDFechaApertura, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(73, 73, 73)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(JBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(JBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(JBCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addComponent(jDFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -270,20 +265,16 @@ public class QuirofanoVentaView extends View <Quirofano> {
                     .addComponent(jDFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel6)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jChAbierto)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JBCancelar)
-                        .addComponent(JBCerrar)
-                        .addComponent(JBImprimir)))
+                    .addComponent(JBImprimir)
+                    .addComponent(JBCancelar)
+                    .addComponent(JBCerrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -320,28 +311,24 @@ public class QuirofanoVentaView extends View <Quirofano> {
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void JBCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCerrarActionPerformed
-        if(0 == model.getRowCount()){
-            JOptionPane.showMessageDialog(this, "No hay productos asignados", "Error",JOptionPane.ERROR_MESSAGE);
-        }else{
-            if(quirofano.isExists()){
-                JOptionPane.showMessageDialog(this, "El quirofano no esta abierto", "Error",JOptionPane.ERROR_MESSAGE);
-                
+        if(quirofano.isExists()){
+            if(quirofano.isVendido()){
+                JOptionPane.showMessageDialog(this, "El quirofano ya fue vendido", "Error",JOptionPane.ERROR_MESSAGE);
             }else{
-                if(quirofano.isAbierto()){
+                try{
+                        
                     laodData();
-                
-                    agrega = JOptionPane.showConfirmDialog(this, "Deseas cerrar quirofano", "Cerrar", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
+                    agrega = JOptionPane.showConfirmDialog(this, "Deseas vender el quirofano", "Vender", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
                     if( 0 == agrega ){    
                         quirofano = quirofanoController.cerrar(quirofano);
                         quirofanoProductoController.cerrar(quirofano, listProduct);
                         productController.actualizaEstatus(listProduct, Constant.STATUS_VENDIDO);
                         validaData();
                     }
-                    
-                }else{
-                    JOptionPane.showMessageDialog(this, "El quirofano ya esta cerrado", "Error",JOptionPane.ERROR_MESSAGE);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(this,ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
+
                 }
-                
             }
         }
     }//GEN-LAST:event_JBCerrarActionPerformed
@@ -368,38 +355,6 @@ public class QuirofanoVentaView extends View <Quirofano> {
     }//GEN-LAST:event_JBImprimirActionPerformed
 
     
-    private void buscaCliente(){
-        try{
-            client = new Client(Integer.parseInt(JTCId.getText()));
-            client = clientController.getClientById(client);
-            if(client.isExists()){
-                jTCliente.setText(client.getNombre());
-            }else{
-                jTCliente.setText("");
-            }
-        }catch(Exception e){
-                System.out.println(e.getMessage());
-
-        }
-    }
-    
-    
-    private void buscaUser(){
-        try{
-            user = new User(Integer.parseInt(JTUid.getText()));
-            user = userController.getUserById(user);
-            if(user.isExists()){
-                JTUNombre.setText(user.getName());
-            }else{
-                JTUNombre.setText("");
-            }
-        }catch(Exception e){
-                System.out.println(e.getMessage());
-
-        }
-    }
-    
-    
     private void validaData(){
         if(0 == product.getError().getStatus().compareTo("000000")){
             JOptionPane.showMessageDialog(this, quirofano.getError().getDetail()+"\n"+ quirofano.getId(), "Correcto", JOptionPane.INFORMATION_MESSAGE);
@@ -415,18 +370,19 @@ public class QuirofanoVentaView extends View <Quirofano> {
         try{
             quirofano.setId(Integer.parseInt(jTIdentificador.getText()));
             quirofano= quirofanoController.getQuirofanoById(quirofano);
+            listQuirofanoProducto = new ArrayList<QuirofanoProducto>();
             if(!quirofano.isExists()){
                 JOptionPane.showMessageDialog(this, "No existe el identificador: "+jTIdentificador.getText(), "Error",JOptionPane.ERROR_MESSAGE);
                 jTIdentificador.setText(null);
                 jTIdentificador.setText("");
-                listQuirofanoProducto = new ArrayList<QuirofanoProducto>();
             }else{
                 quirofanoProducto = new QuirofanoProducto();
                 quirofanoProducto.setQuirofano(quirofano);
                 if(quirofano.isAbierto()){
-                    listQuirofanoProducto = new ArrayList<QuirofanoProducto>();
+                    JOptionPane.showMessageDialog(this, "El quierodano no esta cerrado", "Error",JOptionPane.ERROR_MESSAGE);
+                    quirofano = new Quirofano();
                 }else{
-                    listQuirofanoProducto = quirofanoProductoController.getListByQuirofanoVendido(quirofanoProducto, Constant.NO_VENDIDO);
+                    listQuirofanoProducto = quirofanoProductoController.getListByQuirofanoVendido(quirofanoProducto, Constant.VENDIDO);
                 }
             }
         }catch(Exception e){
@@ -439,16 +395,27 @@ public class QuirofanoVentaView extends View <Quirofano> {
     }
     
     
-    private void laodData(){
+    private void laodData()  throws Exception {
         if(user.isExists()){
             quirofano.setUser(user);
+        }else{
+            
+            throw new Exception("No existe usuario");
         }
         if(client.isExists()){
             quirofano.setClient(client);
+        }else{
+            
+            throw new Exception("No existe Cliente");
         }
-        
+        if(0 == model.getRowCount()){
+            throw new Exception("No hay productos");
+        }
         for(int i = 0; i<model.getRowCount(); i++){
             product = new Product((int) model.getValueAt(i, 0));
+            if( 0 ==product.getPrecioVenta().compareTo(BigDecimal.ZERO)){
+                throw new Exception("El producto "+product.getId()+ " no tiene precio");
+            }
             listProduct.add(product);
         }
     }
@@ -474,12 +441,12 @@ public class QuirofanoVentaView extends View <Quirofano> {
         if(!quirofano.isAbierto()){
             jDFechaCierre.setDate(quirofano.getFechaCierre());
         }
-        jChAbierto.setSelected(quirofano.isAbierto());
+        jChAbierto.setSelected(quirofano.isVendido());
         model.setNumRows(0);
         Product p;
         for(QuirofanoProducto quirofanoProducto : listQuirofanoProducto){
             p = productController.getProductById(quirofanoProducto.getProduct());
-            model.addRow(new Object[]{ p.getId(), p.getLote(), p.getClave(), p.getDescripcion() });
+            model.addRow(new Object[]{ p.getId(), p.getLote(), p.getClave(), p.getDescripcion(), p.getPrecioVenta() });
         }
     }
     

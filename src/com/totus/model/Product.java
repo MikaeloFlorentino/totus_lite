@@ -21,6 +21,7 @@ public class Product extends Model{
     private Date fechaDevolucion;
     private int cantidad;
     private BigDecimal precioCompra;
+    private BigDecimal precioVenta;
     private String factura;
     
     
@@ -111,6 +112,14 @@ public class Product extends Model{
 
     public void setPrecioCompra(BigDecimal precioCompra) {
         this.precioCompra = precioCompra;
+    }
+
+    public BigDecimal getPrecioVenta() {
+        return precioVenta;
+    }
+
+    public void setPrecioVenta(BigDecimal precioVenta) {
+        this.precioVenta = precioVenta;
     }
 
     public String getFactura() {

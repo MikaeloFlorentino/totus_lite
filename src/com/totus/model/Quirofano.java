@@ -15,6 +15,7 @@ public class Quirofano extends Model{
     private boolean abierto;
     private Date fechaApertura;
     private Date fechaCierre;
+    private boolean vendido;
 
     public Quirofano() {
         super(Constant.QUIROFANO);
@@ -64,6 +65,13 @@ public class Quirofano extends Model{
     public void setFechaCierre(Date fechaCierre) {
         this.fechaCierre = fechaCierre;
     }
+
+    public boolean isVendido() {
+        return vendido;
+    }
     
-    
+    public void setVendido(boolean vendido) {
+        this.vendido = vendido;
+    }
+        
 }

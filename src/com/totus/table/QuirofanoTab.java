@@ -17,7 +17,8 @@ public class QuirofanoTab {
     private final String abierto = "abierto";
     private final String fecha_apertura = "fecha_apertura";
     private final String fecha_cierre = "fecha_cierre";
-
+    private final String vendido  = "vendido";
+    
     public String getId() {
         return id;
     }
@@ -40,6 +41,10 @@ public class QuirofanoTab {
 
     public String getFecha_cierre() {
         return fecha_cierre;
+    }
+
+    public String getVendido() {
+        return vendido;
     }
     
 }

@@ -329,5 +329,24 @@ public class QuirofanoController extends Controller<Quirofano> {
         return instance;
     }
 
+    public Quirofano vender(Quirofano instance) {
+        QuirofanoTab quirofanoTab = new QuirofanoTab();
+        instance.setCampos(
+                quirofanoTab.getVendido()+" = " + true 
+            );
+        instance.setCondicional(" WHERE id="+instance.getId());
+        
+        try {
+            instance = super.update(instance);
+            instance.setError(new com.totus.model.Error("000000", "Quierofano Vendido"));
+        } catch (SQLException ex) {
+            instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
+        }
+        
+        return instance;
+    }
+
     
 }
