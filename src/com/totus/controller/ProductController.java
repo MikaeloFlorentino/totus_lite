@@ -89,7 +89,8 @@ public class ProductController extends Controller<Product> {
                 "p."+productTab.getCantidad()+", "+
                 "p."+productTab.getBill()+", "+
                 "r."+providerTab.getName()+", "+
-                "s."+statusTab.getDescription()+""
+                "s."+statusTab.getDescription()+", "+
+                "p."+productTab.getPrice_final()
                
             );
         instance.setCondicional(" p left join providers r on p.provider_id = r.id left join statuses s on p.status_id = s.id  WHERE  p.id="+instance.getId());
@@ -115,6 +116,7 @@ public class ProductController extends Controller<Product> {
                         product.setFactura(result.getString(11));
                         product.getProvider().setNombre(result.getString(12));
                         product.getStatus().setDescription(result.getString(13));
+                        product.setPrecioVenta(result.getBigDecimal(14));
                         product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         
                     }
@@ -438,6 +440,30 @@ public class ProductController extends Controller<Product> {
             instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
         } catch (ClassNotFoundException ex) {
             instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
+        }
+    }
+
+    private void actualizaPrecio(Product instance){
+        ProductTab productTab = new ProductTab();
+        instance.setCampos(
+                productTab.getPrice_final()+" = " + instance.getPrecioVenta()
+            );
+        instance.setCondicional(
+                " WHERE "+ productTab.getId() + " = " + instance.getId()
+        );
+        
+        try {
+            super.update(instance);
+            instance.setError(new com.totus.model.Error("000000", "Producto Actualizado"));
+        } catch (SQLException ex) {
+            instance.setError(new com.totus.model.Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
+        }
+    }
+    public void actualizaPrecio(List<Product> listProduct) {
+        for(Product p : listProduct){
+            this.actualizaPrecio(p);
         }
     }
 }

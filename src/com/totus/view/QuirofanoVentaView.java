@@ -9,11 +9,9 @@ import com.totus.finderView.ClientFinder;
 import com.totus.finderView.ProductFinder;
 import com.totus.finderView.QuirofanoFinder;
 import com.totus.finderView.UserFinder;
-import com.totus.model.Client;
 import com.totus.model.Product;
 import com.totus.model.Quirofano;
 import com.totus.model.QuirofanoProducto;
-import com.totus.model.User;
 import com.totus.report.Report;
 import com.totus.utilities.Constant;
 import com.totus.utilities.Utilies;
@@ -35,10 +33,8 @@ public class QuirofanoVentaView extends View <Quirofano> {
     private int agrega;
     DefaultTableModel model;
     
-    private Client client;
     private Quirofano quirofano;
     private QuirofanoProducto quirofanoProducto;
-    private User user;
     private Product product;
     List<Product> listProduct;
     List<QuirofanoProducto> listQuirofanoProducto;
@@ -56,25 +52,21 @@ public class QuirofanoVentaView extends View <Quirofano> {
     Report report;
     
     public QuirofanoVentaView(java.awt.Frame parent, boolean modal) {
-        super("Productos - Cerrar Quirofano", 609, 643, parent, modal);
+        super("Productos - Venta Quirofano", 609, 643, parent, modal);
         
         initComponents();
         salida = false;
         agrega = 1;
         model =  (DefaultTableModel) jTProductos.getModel();
         
-        client = new Client();
         quirofano = new Quirofano();
         quirofanoProducto = new QuirofanoProducto();
-        user = new User();
         product = new Product();
         listProduct = new ArrayList<Product>();
         listQuirofanoProducto = new ArrayList<QuirofanoProducto>();
         
-        clientController =  new ClientController();
         quirofanoController =  new QuirofanoController();
         quirofanoProductoController = new QuirofanoProductoController();
-        userController = new UserController();
         productController = new ProductController();
         
         clientFinder = new ClientFinder(parent, true);
@@ -200,33 +192,6 @@ public class QuirofanoVentaView extends View <Quirofano> {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jChAbierto)
-                        .addGap(18, 18, 18)
-                        .addComponent(JBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(JBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(JBCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(JTCId, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JTUid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(JTUNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
-                                    .addComponent(jTCliente)))))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,7 +203,38 @@ public class QuirofanoVentaView extends View <Quirofano> {
                                 .addComponent(jDFechaCierre, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jChAbierto)
+                            .addGap(18, 18, 18)
+                            .addComponent(JBImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(JBCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(JBCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jTIdentificador, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jBBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(JTCId, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(JTUid, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(JTUNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                                                .addComponent(jTCliente)))))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -320,9 +316,8 @@ public class QuirofanoVentaView extends View <Quirofano> {
                     laodData();
                     agrega = JOptionPane.showConfirmDialog(this, "Deseas vender el quirofano", "Vender", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
                     if( 0 == agrega ){    
-                        quirofano = quirofanoController.cerrar(quirofano);
-                        quirofanoProductoController.cerrar(quirofano, listProduct);
-                        productController.actualizaEstatus(listProduct, Constant.STATUS_VENDIDO);
+                        quirofano = quirofanoController.vender(quirofano);
+                        productController.actualizaPrecio(listProduct);
                         validaData();
                     }
                 }catch(Exception ex){
@@ -347,8 +342,8 @@ public class QuirofanoVentaView extends View <Quirofano> {
                 parameters.put("FCIERRE",new Utilies().converterDate(quirofano.getFechaCierre()) );
             else
                 parameters.put("FCIERRE", "");
-            parameters.put("NCLIENTE", client.getNombre());
-            parameters.put("NUSUARIO", user.getName());
+            parameters.put("NCLIENTE", quirofano.getClient().getNombre());
+            parameters.put("NUSUARIO", quirofano.getUser().getName());
             report.getReport(Constant.REPORT_CERRAR, parameters);
           //  this.setVisible(false);
         }
@@ -396,23 +391,9 @@ public class QuirofanoVentaView extends View <Quirofano> {
     
     
     private void laodData()  throws Exception {
-        if(user.isExists()){
-            quirofano.setUser(user);
-        }else{
-            
-            throw new Exception("No existe usuario");
-        }
-        if(client.isExists()){
-            quirofano.setClient(client);
-        }else{
-            
-            throw new Exception("No existe Cliente");
-        }
-        if(0 == model.getRowCount()){
-            throw new Exception("No hay productos");
-        }
         for(int i = 0; i<model.getRowCount(); i++){
             product = new Product((int) model.getValueAt(i, 0));
+            product.setPrecioVenta(new BigDecimal(String.valueOf( model.getValueAt(i, 4))));
             if( 0 ==product.getPrecioVenta().compareTo(BigDecimal.ZERO)){
                 throw new Exception("El producto "+product.getId()+ " no tiene precio");
             }
@@ -420,18 +401,16 @@ public class QuirofanoVentaView extends View <Quirofano> {
         }
     }
     private void downlaodData(){
-        user= quirofano.getUser();
-        client =  quirofano.getClient();
-        if(user.isExists()){
-            JTUid.setText( String.valueOf(user.getId()) );
-            JTUNombre.setText(user.getName());
+        if(quirofano.getUser().isExists()){
+            JTUid.setText( String.valueOf(quirofano.getUser().getId()) );
+            JTUNombre.setText(quirofano.getUser().getName());
         }else{
             JTUid.setText("");
             JTUNombre.setText("");
         }
-        if(client.isExists()){
-            JTCId.setText( String.valueOf(client.getId()) );
-            jTCliente.setText(client.getNombre());
+        if(quirofano.getClient().isExists()){
+            JTCId.setText( String.valueOf(quirofano.getClient().getId()) );
+            jTCliente.setText(quirofano.getClient().getNombre());
         }else{
             
             JTCId.setText("");
@@ -444,8 +423,8 @@ public class QuirofanoVentaView extends View <Quirofano> {
         jChAbierto.setSelected(quirofano.isVendido());
         model.setNumRows(0);
         Product p;
-        for(QuirofanoProducto quirofanoProducto : listQuirofanoProducto){
-            p = productController.getProductById(quirofanoProducto.getProduct());
+        for(QuirofanoProducto qp : listQuirofanoProducto){
+            p = productController.getProductById(qp.getProduct());
             model.addRow(new Object[]{ p.getId(), p.getLote(), p.getClave(), p.getDescripcion(), p.getPrecioVenta() });
         }
     }

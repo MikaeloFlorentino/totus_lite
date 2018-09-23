@@ -44,7 +44,8 @@ public class QuirofanoController extends Controller<Quirofano> {
                 "q."+quirofanoTab.getFecha_cierre()+", "+
                 "u."+userTab.getName()+", "+
                 "q."+quirofanoTab.getClient_id()+", "+
-                "c."+clientTab.getName()
+                "c."+clientTab.getName()+", "+
+                "q."+quirofanoTab.getVendido()
             );
         instance.setCondicional(" q left join users u on q.user_id = u.id left join clients c on q.client_id = c.id  WHERE q.id="+instance.getId());
         
@@ -79,7 +80,7 @@ public class QuirofanoController extends Controller<Quirofano> {
                         }else{
                             quirofano.setClient(new Client());
                         }
-                        
+                        quirofano.setVendido(result.getBoolean(8));
                         quirofano.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         
                     }
