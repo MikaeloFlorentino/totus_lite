@@ -188,11 +188,6 @@ public class MenuView extends javax.swing.JFrame {
         jMenu2.add(jMenuItem3);
 
         Cerrar.setText("Quirofano");
-        Cerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CerrarActionPerformed(evt);
-            }
-        });
 
         jMenuItem2.setText("Abrir");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -369,11 +364,6 @@ public class MenuView extends javax.swing.JFrame {
             quirofanoCerrarView.toFront();
         }
     }//GEN-LAST:event_JMIAbrirActionPerformed
-
-    private void CerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarActionPerformed
-        
-       
-    }//GEN-LAST:event_CerrarActionPerformed
 
     private void JMIVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIVentaActionPerformed
          if(!quirofanoVentaView.isVisible()){
