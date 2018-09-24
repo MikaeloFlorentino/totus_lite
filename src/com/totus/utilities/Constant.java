@@ -49,6 +49,7 @@ public class Constant {
     
     final public static String REPORT_ABRIR = "abrir";
     final public static String REPORT_CERRAR = "cerrar";
+    final public static String REPORT_VENTA = "venta";
     
     final public static int STATUS_ACTIVO = 1;
     final public static int STATUS_QUIROFANO = 3;

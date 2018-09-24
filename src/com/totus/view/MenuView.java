@@ -77,6 +77,7 @@ public class MenuView extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -219,7 +220,7 @@ public class MenuView extends javax.swing.JFrame {
 
         jMenu3.setText("Reportes");
 
-        jMenuItem5.setText("Usuarios");
+        jMenuItem5.setText("Productos");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -227,7 +228,7 @@ public class MenuView extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem5);
 
-        jMenuItem6.setText("Caducidad");
+        jMenuItem6.setText("Quirofanos");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
@@ -235,8 +236,11 @@ public class MenuView extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem6);
 
-        jMenuItem8.setText("Inventario Producto");
+        jMenuItem8.setText("Costo - Venta");
         jMenu3.add(jMenuItem8);
+
+        jMenuItem1.setText("Detalle Venta");
+        jMenu3.add(jMenuItem1);
 
         jMenuBar.add(jMenu3);
 
@@ -401,6 +405,7 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;

@@ -344,7 +344,7 @@ public class QuirofanoVentaView extends View <Quirofano> {
                 parameters.put("FCIERRE", "");
             parameters.put("NCLIENTE", quirofano.getClient().getNombre());
             parameters.put("NUSUARIO", quirofano.getUser().getName());
-            report.getReport(Constant.REPORT_CERRAR, parameters);
+            report.getReport(Constant.REPORT_VENTA, parameters);
           //  this.setVisible(false);
         }
     }//GEN-LAST:event_JBImprimirActionPerformed

@@ -168,7 +168,7 @@ public class QuirofanoFinder  extends View <Quirofano> {
         
         if(listQuirofano.size()>0){
             for(Quirofano p: listQuirofano){
-                model.addRow(new Object[]{p.getId(), p.getUser().getName(), p.getFechaApertura()});
+                model.addRow(new Object[]{p.getId(), p.getUser().getName(), p.getClient().getNombre(),p.getFechaApertura(), p.isAbierto()});
             }
             
         }else{
