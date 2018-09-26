@@ -52,12 +52,16 @@ public class Constant {
     final public static String REPORT_VENTA = "venta";
     
     final public static int STATUS_ACTIVO = 1;
+    final public static int STATUS_INACTIVO = 2;
     final public static int STATUS_QUIROFANO = 3;
     final public static int STATUS_VENDIDO = 4;
+    final public static int STATUS_DEVUELTO = 5;
     
     
     final public static boolean VENDIDO=true;
     final public static boolean NO_VENDIDO=false;
+    final public static boolean SI=true;
+    final public static boolean NO=false;
     
     public static User user;
 }

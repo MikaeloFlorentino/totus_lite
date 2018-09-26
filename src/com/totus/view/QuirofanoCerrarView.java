@@ -576,11 +576,7 @@ public class QuirofanoCerrarView extends View <Quirofano> {
             }else{
                 quirofanoProducto = new QuirofanoProducto();
                 quirofanoProducto.setQuirofano(quirofano);
-                if(quirofano.isAbierto()){
-                    listQuirofanoProducto = new ArrayList<QuirofanoProducto>();
-                }else{
-                    listQuirofanoProducto = quirofanoProductoController.getListByQuirofanoVendido(quirofanoProducto, Constant.NO_VENDIDO);
-                }
+                listQuirofanoProducto = new ArrayList<QuirofanoProducto>();
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "No existe el identificador: "+jTIdentificador.getText(), "Error",JOptionPane.ERROR_MESSAGE);

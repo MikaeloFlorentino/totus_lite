@@ -15,12 +15,12 @@ import com.totus.model.Product;
 import com.totus.model.Provider;
 import com.totus.model.Status;
 import com.totus.report.Report;
+import com.totus.utilities.Constant;
 import com.totus.utilities.Impress;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.print.PrintException;
 import javax.swing.JOptionPane;
 
@@ -34,15 +34,17 @@ public class ProductView extends View <Product> {
     ProviderController providerController;
     StatusController statusController;
     Product product;
-    Provider provider;
+    //Provider provider;
     Status status;
     boolean salida;
+    boolean perecedero;
     ProductFinder productFinder;
     ProviderFinder providerFinder;
     StatusFinder statusFinder;
     Report reporte;
     Map parameters;
     Impress impress;
+    
     public ProductView(java.awt.Frame parent, boolean modal) {
         super("Productos - Productos", 582, 421, parent, modal);
         initComponents();
@@ -50,12 +52,13 @@ public class ProductView extends View <Product> {
         providerController = new ProviderController();
         statusController   = new StatusController();
         product = new Product();
-        provider = new Provider();
+        //provider = new Provider();
         status = new Status();
         productFinder  = new ProductFinder(parent, true);
         providerFinder = new ProviderFinder(parent, true);
         statusFinder   = new StatusFinder(parent, true);
         salida=false;
+        perecedero = false;
         reporte = new Report();
         parameters = new HashMap();
         impress = new Impress();
@@ -89,8 +92,6 @@ public class ProductView extends View <Product> {
         JDDevolucion = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
         JDExpiracion = new com.toedter.calendar.JDateChooser();
-        jLabel10 = new javax.swing.JLabel();
-        JTCantidad = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         JTCompra = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -99,6 +100,7 @@ public class ProductView extends View <Product> {
         jBEliminar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
         JBCodigo = new javax.swing.JButton();
+        jCBPerecedero = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -181,15 +183,10 @@ public class ProductView extends View <Product> {
 
         jLabel9.setText("Expiracion");
 
+        JDExpiracion.setEnabled(false);
         JDExpiracion.setNextFocusableComponent(JDDevolucion);
 
-        jLabel10.setText("Cantidad");
-
-        JTCantidad.setNextFocusableComponent(JTFactura);
-
         jLabel11.setText("Compra $");
-
-        JTCompra.setNextFocusableComponent(JTCantidad);
 
         jLabel12.setText("Factura");
 
@@ -227,6 +224,13 @@ public class ProductView extends View <Product> {
             }
         });
 
+        jCBPerecedero.setText("Perecedero");
+        jCBPerecedero.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCBPerecederoItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -261,16 +265,18 @@ public class ProductView extends View <Product> {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(15, 15, 15)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(JTCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                                            .addComponent(JTFactura, javax.swing.GroupLayout.Alignment.TRAILING)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(15, 15, 15)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(JTCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                                    .addComponent(JTCantidad)
-                                    .addComponent(JTFactura, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                        .addComponent(jCBPerecedero)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(jTDescripcion)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,9 +356,7 @@ public class ProductView extends View <Product> {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(JDExpiracion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(JTCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jCBPerecedero))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,43 +377,59 @@ public class ProductView extends View <Product> {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        laodData();
-        if(!product.isExists()){
+        try{
+            laodData(Constant.SI);
+        
+            if(!product.isExists()){
+                product.setStatus( new Status(Constant.STATUS_ACTIVO) );
+                product = productController.save(product);
+                validaData();
 
-            product = productController.save(product);
-            validaData();
+            }else{
+                if ( (Constant.STATUS_ACTIVO == product.getStatus().getId())
+                  || (Constant.STATUS_INACTIVO == product.getStatus().getId()) ) {
+                    product = productController.updateAll(product);
 
-        }else{
-
-            product = productController.updateAll(product);
-
-            validaData();
-            jTIdentificador.setText("");
+                    validaData();
+                    jTIdentificador.setText("");
+                }else{
+                    
+                    throw new Exception("Este producto no puede modificarse");
+                }
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this,ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        laodData();
-        if(product.isExists()){
-            int a = 1;
+        
+        if(product.isExists()){    
             try{
-                a= JOptionPane.showConfirmDialog(this, "Deseas borrar este item", "Alerta", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
-                if(a==0){
-                    product = productController.delete(product);
-                    if(0 == product.getError().getStatus().compareTo("000000")){
-                        JOptionPane.showMessageDialog(this, "Eliminado correctamente", "Afirmativo",JOptionPane.INFORMATION_MESSAGE);
-                        jTIdentificador.setText("");
-                        product = new Product();
-                        downlaodData();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "No se elimino: "+product.getError().getStatus()+"\n"+product.getError().getDetail(), "Error",JOptionPane.ERROR_MESSAGE);
+                laodData(Constant.NO);
+                int a = 1;
+                try{
+                    a= JOptionPane.showConfirmDialog(this, "Deseas borrar este item", "Alerta", JOptionPane.YES_NO_CANCEL_OPTION);//, "Alerta", JOptionPane.QUESTION_MESSAGE);
+                    if(a==0){
+                        product = productController.delete(product);
+                        if(0 == product.getError().getStatus().compareTo("000000")){
+                            JOptionPane.showMessageDialog(this, "Eliminado correctamente", "Afirmativo",JOptionPane.INFORMATION_MESSAGE);
+                            jTIdentificador.setText("");
+                            product = new Product();
+                            downlaodData();
+                        }else{
+                            JOptionPane.showMessageDialog(this, "No se elimino: "+product.getError().getStatus()+"\n"+product.getError().getDetail(), "Error",JOptionPane.ERROR_MESSAGE);
+                        }
                     }
+
+                }catch (Exception e){
+                    JOptionPane.showMessageDialog(this, "No se pudo borrar: "+jTIdentificador.getText(), "Error",JOptionPane.ERROR_MESSAGE);
                 }
 
-            }catch (Exception e){
-                JOptionPane.showMessageDialog(this, "No se pudo borrar: "+jTIdentificador.getText(), "Error",JOptionPane.ERROR_MESSAGE);
+            }catch(Exception ex){
+                JOptionPane.showMessageDialog(this,ex.getMessage(), "Error",JOptionPane.ERROR_MESSAGE);
             }
-
+            
         }
     }//GEN-LAST:event_jBEliminarActionPerformed
 
@@ -473,7 +493,7 @@ public class ProductView extends View <Product> {
             JTPidProvedor.setText(String.valueOf(providerFinder.getSelect()));
             buscaProvider();
         }else{
-            provider = new Provider();
+            product.setProvider(new Provider());
         }
     }//GEN-LAST:event_JBPBuscarProvedorActionPerformed
 
@@ -491,16 +511,20 @@ public class ProductView extends View <Product> {
             JTSidStatus.setText(String.valueOf(statusFinder.getSelect()));
             buscaStatus();
         }else{
-            status = new Status();
+            product.setStatus( new Status() );
         }
     }//GEN-LAST:event_JBSBuscarStatuaActionPerformed
 
+    private void jCBPerecederoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBPerecederoItemStateChanged
+        JDExpiracion.setEnabled(jCBPerecedero.isSelected());
+    }//GEN-LAST:event_jCBPerecederoItemStateChanged
+
     private void buscaStatus(){
         try{
-            status = new Status(Integer.parseInt(JTSidStatus.getText()));
-            status = statusController.getProviderById(status);
-            if(status.isExists()){
-                JTSNombreStatus.setText(status.getDescription());
+            product.setStatus( new Status(Integer.parseInt(JTSidStatus.getText())) );
+            product.setStatus( statusController.getProviderById( product.getStatus() ) );
+            if(product.getStatus().isExists()){
+                JTSNombreStatus.setText(product.getStatus().getDescription());
             }
         }catch(Exception e){
 
@@ -509,10 +533,10 @@ public class ProductView extends View <Product> {
     
     private void buscaProvider(){
         try{
-           provider = new Provider(Integer.parseInt(JTPidProvedor.getText()));
-            provider = providerController.getProviderById(provider);
-            if(provider.isExists()){
-                JTPNombreProvedor.setText(provider.getNombre());
+            product.setProvider( new Provider(Integer.parseInt(JTPidProvedor.getText())) );
+            product.setProvider( providerController.getProviderById(product.getProvider()) );
+            if(product.getProvider().isExists()){
+                JTPNombreProvedor.setText(product.getProvider().getNombre());
             }
         }catch(Exception e){
 
@@ -543,13 +567,14 @@ public class ProductView extends View <Product> {
             JTPNombreProvedor.setText(product.getProvider().getNombre());
             JTSidStatus.setText(String.valueOf(product.getStatus().getId()));
             JTSNombreStatus.setText(product.getStatus().getDescription());
-            provider = product.getProvider();
+            //product.getProvider();
             status = product.getStatus();
         }else{
             JTPidProvedor.setText(null);
             JTPNombreProvedor.setText(null);
             JTSidStatus.setText(null);
             JTSNombreStatus.setText(null);
+            status = new Status();
         }
         
         jTClave.setText(product.getClave());
@@ -558,23 +583,95 @@ public class ProductView extends View <Product> {
         jDFabricacion.setDate(product.getFechaFabricacion());
         JDExpiracion.setDate(product.getFechaExpiracion());
         JDDevolucion.setDate(product.getFechaDevolucion());
-        JTCompra.setText(String.valueOf(product.getPrecioCompra()));
-        JTCantidad.setText(String.valueOf(product.getCantidad()));
+        JTCompra.setText(product.getPrecioCompra()+"");
+//        JTCantidad.setText(String.valueOf(product.getCantidad()));
         JTFactura.setText(product.getFactura());
+        jCBPerecedero.setSelected(product.isPerecedero());
+        perecedero = product.isPerecedero();
     }
     
-    private void laodData() {
-        product.setProvider(provider);
-        product.setStatus(status);
+    private void validaCambio() throws Exception {
+        //Validamos el stado act
+        switch(status.getId()){
+            case Constant.STATUS_ACTIVO:
+                if(Constant.STATUS_INACTIVO!=product.getStatus().getId()){
+                    throw new Exception("De status Activo no se puede cambiar a: " + product.getStatus().getDescription());
+                }
+                break;
+            case Constant.STATUS_INACTIVO:
+                if(Constant.STATUS_ACTIVO!=product.getStatus().getId()){
+                    throw new Exception("De status Inactivo no se puede cambiar a: " + product.getStatus().getDescription());
+                }
+                break;
+            case Constant.STATUS_QUIROFANO:
+                //if(Constant.STATUS_ACTIVO!=product.getStatus().getId()){
+                throw new Exception("De status en Quirofano no se puede cambiar a: " + product.getStatus().getDescription());
+                //}
+                    
+                //break;
+            case Constant.STATUS_VENDIDO:
+                //if(Constant.STATUS_DEVUELTO!=product.getStatus().getId()){
+                    throw new Exception("De status Vendido no se puede cambiar a: " + product.getStatus().getDescription());
+                //}
+                //break;
+            case Constant.STATUS_DEVUELTO:
+                //if(Constant.STATUS_ACTIVO!=product.getStatus().getId()){
+                    throw new Exception("De status Devuelto no se puede cambiar a: " + product.getStatus().getDescription());
+                //}
+                //break;
+        }
+    }
+    
+    private void validaEliminar() throws Exception {
+        if( (status.getId()!=Constant.STATUS_ACTIVO)
+             && (status.getId()!=Constant.STATUS_INACTIVO)  ){
+                throw new Exception("No se puede cambiar un status:\n" + status.getDescription());
+        }
+    }
+    private void laodData(boolean guardar) throws Exception {
+        try{
+            if(!product.getProvider().isExists()){
+                throw new Exception("No se asignado proveedor");
+            }
+        }catch (Exception e){
+                throw new Exception("No se asignado proveedor");
+        }
+        
+        try{
+            if(!product.getStatus().isExists()){
+                throw new Exception("No se asignado estatus .");
+            }
+        }catch (Exception e){
+                throw new Exception("No se asignado estatus");
+        }
+        
+        if(guardar){
+            if(jCBPerecedero.isSelected()){
+                product.setFechaExpiracion(JDExpiracion.getDate());
+            }
+            if(status.getId() != product.getStatus().getId()){
+                validaCambio();
+            }
+        }else{
+            validaEliminar();
+        }
+        //product.setProvider(provider);
+        //product.setStatus(status);
         product.setClave(jTClave.getText());
         product.setLote(jTLote.getText());
         product.setDescripcion(jTDescripcion.getText());
         product.setFechaFabricacion(jDFabricacion.getDate());
-        product.setFechaExpiracion(JDExpiracion.getDate());
-        product.setFechaDevolucion(JDDevolucion.getDate());
+//        product.setFechaExpiracion(JDExpiracion.getDate());
+        
+        //product.setFechaDevolucion(JDDevolucion.getDate());
         product.setPrecioCompra(new BigDecimal(JTCompra.getText()));
-        product.setCantidad(Integer.parseInt(JTCantidad.getText()));
+//        product.setCantidad(Integer.parseInt(JTCantidad.getText()));
         product.setFactura(JTFactura.getText());
+        product.setPerecedero(jCBPerecedero.isSelected());
+        if(perecedero)
+        if(jCBPerecedero.isSelected()){
+            product.setFechaExpiracion(JDExpiracion.getDate());
+        }
     }
     
     private void validaData(){
@@ -597,7 +694,6 @@ public class ProductView extends View <Product> {
     private javax.swing.JButton JBSBuscarStatua;
     private com.toedter.calendar.JDateChooser JDDevolucion;
     private com.toedter.calendar.JDateChooser JDExpiracion;
-    private javax.swing.JTextField JTCantidad;
     private javax.swing.JTextField JTCompra;
     private javax.swing.JTextField JTFactura;
     private javax.swing.JTextField JTPNombreProvedor;
@@ -607,9 +703,9 @@ public class ProductView extends View <Product> {
     private javax.swing.JButton jBCancelar;
     private javax.swing.JButton jBEliminar;
     private javax.swing.JButton jBGuardar;
+    private javax.swing.JCheckBox jCBPerecedero;
     private com.toedter.calendar.JDateChooser jDFabricacion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;

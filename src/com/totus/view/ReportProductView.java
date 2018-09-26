@@ -559,7 +559,7 @@ public class ReportProductView extends View <Product> {
         JDExpiracion.setDate(product.getFechaExpiracion());
         JDDevolucion.setDate(product.getFechaDevolucion());
         JTCompra.setText(String.valueOf(product.getPrecioCompra()));
-        JTCantidad.setText(String.valueOf(product.getCantidad()));
+        //JTCantidad.setText(String.valueOf(product.getCantidad()));
         JTFactura.setText(product.getFactura());
     }
     
@@ -573,7 +573,7 @@ public class ReportProductView extends View <Product> {
         product.setFechaExpiracion(JDExpiracion.getDate());
         product.setFechaDevolucion(JDDevolucion.getDate());
         product.setPrecioCompra(new BigDecimal(JTCompra.getText()));
-        product.setCantidad(Integer.parseInt(JTCantidad.getText()));
+        //product.setCantidad(Integer.parseInt(JTCantidad.getText()));
         product.setFactura(JTFactura.getText());
     }
     

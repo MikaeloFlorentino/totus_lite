@@ -20,12 +20,13 @@ public class ProductTab {
     private final String fabrication_date = "fabrication_date";
     private final String expiration_date = "expiration_date";
     private final String return_date = "return_date";
-    private final String cantidad = "cantidad";
+//    private final String cantidad = "cantidad";
     private final String price_purchase = "price_purchase";
     private final String price_public = "price_public";
     private final String price_final = "price_final";
     private final String bill = "bill";
-
+    private final String perishable = "perishable";
+    
     public String getId() {
         return id;
     }
@@ -62,10 +63,10 @@ public class ProductTab {
         return return_date;
     }
 
-    public String getCantidad() {
+/*    public String getCantidad() {
         return cantidad;
     }
-
+*/
     public String getPrice_purchase() {
         return price_purchase;
     }
@@ -81,8 +82,9 @@ public class ProductTab {
     public String getBill() {
         return bill;
     }
-    
-    
-    
+
+    public String getPerishable() {
+        return perishable;
+    }
     
 }

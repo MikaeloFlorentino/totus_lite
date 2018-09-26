@@ -2,6 +2,7 @@ package com.totus.finderView;
 
 import com.totus.controller.ProductController;
 import com.totus.model.Product;
+import com.totus.utilities.Constant;
 import com.totus.utilities.Utilies;
 import com.totus.view.View;
 import java.util.List;
@@ -170,7 +171,11 @@ public class ProductFinder  extends View <Product> {
         product.setDescripcion(jTFNombre.getText());
         if(0 != statusId){
             if(0 == quirofanoId){
-                listProduct = productController.getListByNameStatus(product, statusId);
+                if(Constant.STATUS_DEVUELTO != statusId){
+                    listProduct = productController.getListByNameStatus(product, statusId);
+                }else{
+                    listProduct = productController.getListByAcivsNoActivs(product);
+                }
             }else{
                 listProduct = productController.getListByQuirofano(product, statusId, quirofanoId);
                 

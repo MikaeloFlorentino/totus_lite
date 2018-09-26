@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.totus.controller;
 
 import com.totus.model.Status;
@@ -30,7 +25,7 @@ public class ProductController extends Controller<Product> {
         super();
     }
     
-    public List<Product> getProductsExpiration(Product instance){
+    public List<Product> getProductsExpiration(Product instance, int meses){
         List<Product> listProduct = new ArrayList<>();
         ProductTab productTab = new ProductTab();
         Product product = new Product();
@@ -40,8 +35,9 @@ public class ProductController extends Controller<Product> {
                
             );
         
-        instance.setCondicional(" WHERE "+productTab.getExpiration_date()+" <=current_date + '"+instance.getCantidad()+" months':: interval" +
-            " and " + productTab.getStatus_id() +" = " + Constant.STATUS_ACTIVO
+        instance.setCondicional(" WHERE "+productTab.getExpiration_date()+" <=current_date + '"+meses+" months':: interval" +
+            " and " + productTab.getStatus_id() +" = " + Constant.STATUS_ACTIVO +
+            " and " + productTab.getPerishable() + " = true"
             );
         
             
@@ -86,7 +82,7 @@ public class ProductController extends Controller<Product> {
                 "p."+productTab.getExpiration_date()+", "+
                 "p."+productTab.getReturn_date()+", "+
                 "p."+productTab.getPrice_purchase()+", "+
-                "p."+productTab.getCantidad()+", "+
+                "p."+productTab.getPerishable()+", "+
                 "p."+productTab.getBill()+", "+
                 "r."+providerTab.getName()+", "+
                 "s."+statusTab.getDescription()+", "+
@@ -112,11 +108,13 @@ public class ProductController extends Controller<Product> {
                         product.setFechaExpiracion(result.getDate(7));
                         product.setFechaDevolucion(result.getDate(8));
                         product.setPrecioCompra(result.getBigDecimal(9));
-                        product.setCantidad(result.getInt(10));
+                        product.setPerecedero(result.getBoolean(10));
                         product.setFactura(result.getString(11));
                         product.getProvider().setNombre(result.getString(12));
                         product.getStatus().setDescription(result.getString(13));
                         product.setPrecioVenta(result.getBigDecimal(14));
+                        product.getProvider().setExists(true);
+                        product.getStatus().setExists(true);
                         product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         
                     }
@@ -143,10 +141,10 @@ public class ProductController extends Controller<Product> {
                 productTab.getLote()+ " = '" + instance.getLote()+ "', "+
                 productTab.getDescription()+ " = '" + instance.getDescripcion()+ "', "+
                 productTab.getFabrication_date()+ " = '" + new Utilies().converterDate(instance.getFechaFabricacion())+ "', "+
-                productTab.getExpiration_date()+ " = '" +  new Utilies().converterDate(instance.getFechaExpiracion())+ "', "+
-                productTab.getReturn_date()+ " = '" + new Utilies().converterDate(instance.getFechaDevolucion())+ "', "+
-                productTab.getPrice_purchase()+ " = '" + instance.getPrecioCompra()+ "', "+
-                productTab.getCantidad() + " = " + instance.getCantidad()+ ", "+
+                //productTab.getExpiration_date()+ " = '" +  new Utilies().converterDate(instance.getFechaExpiracion())+ "', "+
+                //productTab.getReturn_date()+ " = '" + new Utilies().converterDate(instance.getFechaDevolucion())+ "', "+
+                //productTab.getPrice_purchase()+ " = '" + instance.getPrecioCompra()+ "', "+
+                //productTab.getPerishable()+ " = " + instance.isPerecedero()+ ", "+
                 productTab.getBill() + " = '" + instance.getFactura()+ "'"
             );
         instance.setCondicional(" WHERE id="+instance.getId());
@@ -165,8 +163,13 @@ public class ProductController extends Controller<Product> {
     
     public Product actualizaEstatus(Product instance) {
         ProductTab productTab = new ProductTab();
+        String val ="";
+        if(Constant.STATUS_DEVUELTO == instance.getStatus().getId()){
+            val = ", " + productTab.getReturn_date() + " = NOW()" ;
+        }
         instance.setCampos(
-                productTab.getStatus_id() + " = " + instance.getStatus().getId()
+                productTab.getStatus_id() + " = " + instance.getStatus().getId() +
+                        val
             );
         instance.setCondicional(" WHERE id="+instance.getId());
         
@@ -186,8 +189,13 @@ public class ProductController extends Controller<Product> {
     
     @Override
     public Product save(Product instance){
-        
         ProductTab productTab = new ProductTab();
+        String cam="";
+        String val="";
+        if(instance.isPerecedero()){
+            cam = ", "+ productTab.getExpiration_date();
+            val = ", '" + new Utilies().converterDate(instance.getFechaExpiracion()) + "'";
+        }
         instance.setCampos(
                 productTab.getProvider_id()+", "+
                 productTab.getStatus_id()+", "+
@@ -195,11 +203,10 @@ public class ProductController extends Controller<Product> {
                 productTab.getLote()+", "+
                 productTab.getDescription()+", "+
                 productTab.getFabrication_date()+", "+
-                productTab.getExpiration_date()+", "+
-                productTab.getReturn_date()+", "+
-                productTab.getCantidad()+", "+
+                productTab.getPerishable()+", "+
                 productTab.getPrice_purchase()+", "+
-                productTab.getBill()
+                productTab.getBill()+" "+
+                cam
             );
         
         instance.setValor(
@@ -209,11 +216,10 @@ public class ProductController extends Controller<Product> {
                 "'" + instance.getLote() + "', "+
                 "'" + instance.getDescripcion()+ "', "+
                 "'" + new Utilies().converterDate(instance.getFechaFabricacion()) + "', "+
-                "'" + new Utilies().converterDate(instance.getFechaExpiracion()) + "', "+
-                "'" + new Utilies().converterDate(instance.getFechaDevolucion()) + "', "+
-                "" + instance.getCantidad() + ", "+
+                "" + instance.isPerecedero()+ ", "+
                 "'" + instance.getPrecioCompra() + "', "+
-                "'" + instance.getFactura()+"'"
+                "'" + instance.getFactura()+"'"+
+                val
             );
         
         instance.setCondicional(" RETURNING id");
@@ -461,9 +467,65 @@ public class ProductController extends Controller<Product> {
             instance.setError(new com.totus.model.Error("000001", ex.getMessage()));
         }
     }
+    
     public void actualizaPrecio(List<Product> listProduct) {
         for(Product p : listProduct){
             this.actualizaPrecio(p);
         }
+    }
+
+    public List<Product> getListByAcivsNoActivs(Product instance) {
+        List<Product> listProduct = new ArrayList<>();
+        ProductTab productTab = new ProductTab();
+        Product product = new Product();
+        instance.setCampos(
+                productTab.getId()+", "+
+                productTab.getDescription()+", "+
+                productTab.getBill()
+               
+            );
+        if(null != instance.getDescripcion()){
+            if(instance.getDescripcion().trim().length()>0){
+                instance.setCondicional(" WHERE "+productTab.getDescription()+" like '%"+instance.getDescripcion()+"%'" +
+                        " and " + productTab.getPerishable() + " = "+Constant.SI +
+                        " and " + productTab.getStatus_id()+" in  ("+ Constant.STATUS_ACTIVO+", "+Constant.STATUS_INACTIVO+") "
+                    );
+            }else{
+                instance.setCondicional(" WHERE " + productTab.getPerishable() + " = "+Constant.SI +
+                        " and " + productTab.getStatus_id()+" in  ("+ Constant.STATUS_ACTIVO+", "+Constant.STATUS_INACTIVO+")"
+                    );
+            }
+        }else{
+            instance.setCondicional(" WHERE " + productTab.getPerishable() + " = "+Constant.SI +
+                        " and " + productTab.getStatus_id()+" in  ("+ Constant.STATUS_ACTIVO+", "+Constant.STATUS_INACTIVO+")"
+                );
+        }
+            
+        
+        
+        ResultSet result=null;
+        try {
+            result = super.select(instance);
+            if(result != null){
+                try {
+                    while (result .next()){
+                        product = new Product();
+                        product.setId(result.getInt(1) );
+                        product.setDescripcion(result.getString(2) );
+                        product.setFactura(result.getString(3));
+                        product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
+                        listProduct.add(product);
+                    }
+                } catch (SQLException ex) {
+                    //instance.setError(new Error("000003", ex.getMessage()));
+                }
+            }
+        } catch (SQLException ex) {
+            //instance.setError(new Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            //instance.setError(new Error("000001", ex.getMessage()));
+        }
+        return listProduct;
+    
     }
 }

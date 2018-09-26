@@ -2,15 +2,12 @@ package com.totus.view;
 
 import com.totus.controller.ProductController;
 import com.totus.model.Product;
-import com.totus.model.Provider;
-import com.totus.model.User;
 import com.totus.report.Report;
 import com.totus.utilities.Constant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,18 +18,18 @@ public class MenuView extends javax.swing.JFrame {
 
     ClientView clientView= new ClientView(this, true);
     UserView userView = new UserView(this, true);
-    //Provider7_2View providerView = new Provider_2View();
     ProviderView providerView = new ProviderView(this, true);
     //NewJFrame providerView = new NewJFrame();
-    QuirofanoAbrirView  quirofanoAbrirView= new QuirofanoAbrirView(this, false);
-    QuirofanoCerrarView  quirofanoCerrarView= new QuirofanoCerrarView(this, false);
-    QuirofanoVentaView quirofanoVentaView = new QuirofanoVentaView(this, false);
-    ProductView productView = new ProductView(this, true);
+    QuirofanoAbrirView  quirofanoAbrirView;
+    QuirofanoCerrarView  quirofanoCerrarView;
+    QuirofanoVentaView quirofanoVentaView;
+    ProductView productView;
+    ReturnProductView returnProductView;
     
     ProductController productController;
     Product product;
     DefaultTableModel model;
-    private int select;
+    private int meses;
     List<Product> listProduct;
     Report report;
     /**
@@ -44,11 +41,17 @@ public class MenuView extends javax.swing.JFrame {
         productController = new ProductController();
         product = new Product();
         model = (DefaultTableModel) JTProductExpiration.getModel();
-        select = 0;
+        meses = 0;
         model.setNumRows(0);
         listProduct = null;
         report = new Report();
         cargaProductosExpirados();
+        
+        quirofanoAbrirView = new QuirofanoAbrirView(this, false);
+        quirofanoCerrarView = new QuirofanoCerrarView(this, false);
+        quirofanoVentaView  = new QuirofanoVentaView(this, false);
+        productView = new ProductView(this, true);
+        returnProductView = new ReturnProductView(this, false);
     }
 
     
@@ -73,6 +76,7 @@ public class MenuView extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         JMIAbrir = new javax.swing.JMenuItem();
         JMIVenta = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -215,6 +219,14 @@ public class MenuView extends javax.swing.JFrame {
         Cerrar.add(JMIVenta);
 
         jMenu2.add(Cerrar);
+
+        jMenuItem4.setText("Devolver Proveedor");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
 
         jMenuBar.add(jMenu2);
 
@@ -370,7 +382,7 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_JMIAbrirActionPerformed
 
     private void JMIVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMIVentaActionPerformed
-         if(!quirofanoVentaView.isVisible()){
+        if(!quirofanoVentaView.isVisible()){
             quirofanoVentaView = new QuirofanoVentaView(this, false);
             quirofanoVentaView.setVisible(true);
         }else{
@@ -378,10 +390,20 @@ public class MenuView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JMIVentaActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        if(!returnProductView.isVisible()){
+            returnProductView = new ReturnProductView(this, false);
+            returnProductView.setVisible(true);
+        }else{
+            returnProductView.toFront();
+        }
+        
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
      private void cargaProductosExpirados(){
         model.setNumRows(0);
-        product.setCantidad(Integer.parseInt(jtMonth.getText()));
-        listProduct = productController.getProductsExpiration(product);
+        meses = Integer.parseInt(jtMonth.getText());
+        listProduct = productController.getProductsExpiration(product, meses);
         if(listProduct.size()>0){
             for(Product p: listProduct){
                 model.addRow(new Object[]{p.getId(), p.getFechaExpiracion()});
@@ -410,6 +432,7 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem8;

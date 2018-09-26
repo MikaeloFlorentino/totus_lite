@@ -19,11 +19,11 @@ public class Product extends Model{
     private Date fechaFabricacion;
     private Date fechaExpiracion;
     private Date fechaDevolucion;
-    private int cantidad;
+//    private int cantidad;
     private BigDecimal precioCompra;
     private BigDecimal precioVenta;
     private String factura;
-    
+    private boolean perecedero;
     
     public Product() {
         super(Constant.PRODUCT);
@@ -98,14 +98,14 @@ public class Product extends Model{
         this.fechaDevolucion = fechaDevolucion;
     }
 
-    public int getCantidad() {
+/*    public int getCantidad() {
         return cantidad;
     }
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-
+*/
     public BigDecimal getPrecioCompra() {
         return precioCompra;
     }
@@ -129,7 +129,13 @@ public class Product extends Model{
     public void setFactura(String factura) {
         this.factura = factura;
     }
-    
-    
+
+    public boolean isPerecedero() {
+        return perecedero;
+    }
+
+    public void setPerecedero(boolean perecedero) {
+        this.perecedero = perecedero;
+    }
     
 }

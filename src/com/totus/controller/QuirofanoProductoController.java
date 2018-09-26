@@ -8,6 +8,7 @@ import com.totus.model.Quirofano;
 import com.totus.model.QuirofanoProducto;
 import com.totus.model.User;
 import com.totus.table.ClientTab;
+import com.totus.table.ProductTab;
 import com.totus.table.QuirofanoProductoTab;
 import com.totus.table.QuirofanoTab;
 import com.totus.table.UserTab;
@@ -92,13 +93,21 @@ public class QuirofanoProductoController extends Controller<QuirofanoProducto> {
      */
      public QuirofanoProducto actualizaVenta(QuirofanoProducto instance,  boolean vendido){
         QuirofanoProductoTab quirofanoProductoTab = new QuirofanoProductoTab();
+        ProductTab productTab = new ProductTab();
         instance.setCampos(
                 quirofanoProductoTab.getVendido()+" = " + vendido 
             );
+        /*
         instance.setCondicional(" WHERE "+quirofanoProductoTab.getQuirofano_id()+"="+instance.getQuirofano().getId() +
                 " and " + quirofanoProductoTab.getProducto_id()+"="+instance.getProduct().getId()
             );
-            
+        */
+        instance.setCondicional(" FROM public.products"+
+                " WHERE quirofano_producto."+quirofanoProductoTab.getQuirofano_id()+"="+instance.getQuirofano().getId() +
+                " and quirofano_producto." + quirofanoProductoTab.getProducto_id()+"="+instance.getProduct().getId()+
+                " and quirofano_producto." + quirofanoProductoTab.getProducto_id()+"= products."+productTab.getId()+
+                " and products."+productTab.getPerishable()+"="+Constant.SI
+            );
         
         try {
             instance = super.update(instance);
