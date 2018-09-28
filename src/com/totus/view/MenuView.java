@@ -24,7 +24,7 @@ public class MenuView extends javax.swing.JFrame {
     QuirofanoCerrarView  quirofanoCerrarView;
     QuirofanoVentaView quirofanoVentaView;
     ProductView productView;
-    ReturnProductView returnProductView;
+    DevolucionView returnProductView;
     
     ProductController productController;
     Product product;
@@ -51,7 +51,7 @@ public class MenuView extends javax.swing.JFrame {
         quirofanoCerrarView = new QuirofanoCerrarView(this, false);
         quirofanoVentaView  = new QuirofanoVentaView(this, false);
         productView = new ProductView(this, true);
-        returnProductView = new ReturnProductView(this, false);
+        returnProductView = new DevolucionView(this, false);
     }
 
     
@@ -392,7 +392,7 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         if(!returnProductView.isVisible()){
-            returnProductView = new ReturnProductView(this, false);
+            returnProductView = new DevolucionView(this, false);
             returnProductView.setVisible(true);
         }else{
             returnProductView.toFront();

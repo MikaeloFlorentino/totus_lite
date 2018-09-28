@@ -37,6 +37,8 @@ public class Constant {
     
     final public static String USER = "users";
     final public static String CLIENT = "clients";
+    final public static String DEVOLUCION = "devolucion";
+    final public static String DEVOLUCION_PRODUCTO = "devolucion_producto";
     final public static String STATUS = "statuses";
     final public static String PROVIDER = "providers";
     final public static String PRODUCT = "products";
@@ -50,6 +52,7 @@ public class Constant {
     final public static String REPORT_ABRIR = "abrir";
     final public static String REPORT_CERRAR = "cerrar";
     final public static String REPORT_VENTA = "venta";
+    final public static String REPORT_DEVOLUCION = "devolucion";
     
     final public static int STATUS_ACTIVO = 1;
     final public static int STATUS_INACTIVO = 2;
