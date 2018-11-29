@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="FINICIO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="FFIN" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORTES" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT d.id, d.message, d.fecha::date fecha, count(dp.*) total
+  FROM public.devolucion d
+inner join   public.devolucion_producto dp ON d.id=dp.devolucion_id
+ where  d.fecha>='$P!{FINICIO}' and 
+		  d.fecha<='$P!{FFIN}'
+group by d.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="message" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="total" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="70" y="32" width="165" height="15" uuid="d278cea3-dda4-4a16-8eef-18444884028b"/>
+				<textFieldExpression><![CDATA[$P{FINICIO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="70" y="47" width="165" height="15" uuid="c0ccdfd3-feb5-4855-a4b1-889dabed6a3d"/>
+				<textFieldExpression><![CDATA[$P{FFIN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-1" y="47" width="71" height="15" uuid="2964f5a9-227c-4768-a400-674adf34f798"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cierre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="0" width="309" height="32" uuid="5c0482c6-135e-4dfb-8a3d-bb214a097e5d"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Quirofanos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-1" y="32" width="71" height="15" uuid="9f57016f-19d9-4083-8ce8-c42dfcb0a7af"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apertura]]></text>
+			</staticText>
+			<image>
+				<reportElement x="416" y="0" width="155" height="64" uuid="47d8ad97-827e-4eb3-a1c7-bd10fd9c8126"/>
+				<imageExpression><![CDATA[$P{REPORTES}+"leaf_banner_gray.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="572" height="1" uuid="63968880-b715-4798-80aa-46e04e61d481"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="78" height="15" uuid="1ac836da-cf71-4532-ac47-de102dbd4c44"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="78" y="19" width="343" height="15" uuid="fdb6f376-b050-42df-af10-a0f423f989b7"/>
+				<text><![CDATA[mensaje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="484" y="19" width="88" height="15" uuid="cc8a12f8-163f-4662-809d-dd878b159f0b"/>
+				<text><![CDATA[total articulos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="421" y="19" width="63" height="15" uuid="c8e7317c-1429-4e7e-9e32-de423fad4e35"/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="572" height="1" uuid="72717556-c4c3-463a-a543-77da1d11d57d"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="78" height="15" uuid="7a2e895c-e882-4b97-b09c-8fa6baa68098"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="78" y="0" width="343" height="15" uuid="c1689e1c-eb9e-4c78-bd60-28471653ff46"/>
+				<textFieldExpression><![CDATA[$F{message}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="523" y="0" width="49" height="15" uuid="dc5866cc-7fc2-44d1-a989-32cc6473f65d"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="421" y="0" width="102" height="15" uuid="a35c64a1-ee3b-4cc5-af6f-6a79caba5118"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="c377c4fb-d482-4b7b-bd1a-cf73dd2cca9b"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="5a4148cf-db4e-4daf-aa50-66db04314b36"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="4823b33c-3d9c-4452-a536-3a3b666831af"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

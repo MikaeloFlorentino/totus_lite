@@ -177,7 +177,7 @@ public class ProductView extends View <Product> {
 
         jDFabricacion.setNextFocusableComponent(JDExpiracion);
 
-        jLabel8.setText("Devolicon");
+        jLabel8.setText("Devolucion");
 
         JDDevolucion.setNextFocusableComponent(JTCompra);
 

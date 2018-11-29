@@ -17,7 +17,7 @@ public class Utilies {
         return converterDate(new Date());
     }
 
-    public Object converterDateWhitOutHour(Date date) {
+    public String converterDateWhitOutHour(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 }

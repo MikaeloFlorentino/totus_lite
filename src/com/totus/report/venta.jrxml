@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be031086-2de6-4378-9b1e-b24a745a69cc">
+	<property name="ireport.zoom" value="1.6105100000000014"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
@@ -39,15 +39,15 @@ order by p.id]]>
 				<text><![CDATA[QUIROFANO: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="184" y="2" width="213" height="32" uuid="eb99609f-74dd-460b-b0f3-40c705d61eea"/>
+				<reportElement x="203" y="2" width="213" height="32" uuid="eb99609f-74dd-460b-b0f3-40c705d61eea"/>
 				<textElement>
 					<font size="22" isBold="true"/>
 				</textElement>
 				<text><![CDATA[VENTA]]></text>
 			</staticText>
 			<image>
-				<reportElement x="397" y="2" width="155" height="64" uuid="4b7fce3c-3bcf-455d-b062-b28d21832730"/>
-				<imageExpression><![CDATA["/reportes/leaf_banner_gray.png"]]></imageExpression>
+				<reportElement x="417" y="2" width="155" height="64" uuid="4b7fce3c-3bcf-455d-b062-b28d21832730"/>
+				<imageExpression><![CDATA[$P{REPORTES}+"leaf_banner_gray.png"]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement style="Detail" x="71" y="34" width="197" height="15" uuid="d0db1a64-6a37-4106-9199-8672cc524f77"/>
@@ -69,7 +69,7 @@ order by p.id]]>
 				<textFieldExpression><![CDATA[$P{NCLIENTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="71" y="19" width="92" height="15" uuid="f88b40a8-ca52-43cd-aa72-09cf5257af05"/>
+				<reportElement style="Detail" x="71" y="19" width="96" height="15" uuid="f88b40a8-ca52-43cd-aa72-09cf5257af05"/>
 				<textFieldExpression><![CDATA[$P{QUIROFANO}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -105,67 +105,67 @@ order by p.id]]>
 	<columnHeader>
 		<band height="36" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="1e7a4751-3d2a-4858-8ca6-c59d9f255419"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="572" height="1" uuid="1e7a4751-3d2a-4858-8ca6-c59d9f255419"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement style="Column header" x="0" y="19" width="92" height="15" uuid="dfd382a2-3a3f-4923-9f47-0c4e2f73eafc"/>
+				<reportElement style="Column header" x="0" y="19" width="71" height="15" uuid="dfd382a2-3a3f-4923-9f47-0c4e2f73eafc"/>
 				<text><![CDATA[id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="92" y="19" width="92" height="15" uuid="3aac0234-1421-47b1-87a3-11a7b61b2430"/>
+				<reportElement style="Column header" x="71" y="19" width="132" height="15" uuid="3aac0234-1421-47b1-87a3-11a7b61b2430"/>
 				<text><![CDATA[description]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="184" y="19" width="92" height="15" uuid="06d5be19-c339-4573-b30b-db2e81d3f555"/>
+				<reportElement style="Column header" x="203" y="19" width="92" height="15" uuid="06d5be19-c339-4573-b30b-db2e81d3f555"/>
 				<text><![CDATA[clave]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="276" y="19" width="92" height="15" uuid="f6f53d5e-28f6-41d6-9163-a1329fe7a04c"/>
+				<reportElement style="Column header" x="295" y="19" width="92" height="15" uuid="f6f53d5e-28f6-41d6-9163-a1329fe7a04c"/>
 				<text><![CDATA[lote]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="368" y="19" width="92" height="15" uuid="b473f389-57cb-4f52-8e4b-d2b12fc3a165"/>
-				<text><![CDATA[bill]]></text>
+				<reportElement style="Column header" x="387" y="19" width="92" height="15" uuid="b473f389-57cb-4f52-8e4b-d2b12fc3a165"/>
+				<text><![CDATA[factura]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="460" y="19" width="92" height="15" uuid="e3199c57-6f18-4cdf-b9f7-f1d835912488"/>
-				<text><![CDATA[price_final]]></text>
+				<reportElement style="Column header" x="479" y="19" width="93" height="15" uuid="e3199c57-6f18-4cdf-b9f7-f1d835912488"/>
+				<text><![CDATA[precio Final]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="16" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="629c982f-538b-40e8-8084-d92dad1cac00"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="572" height="1" uuid="629c982f-538b-40e8-8084-d92dad1cac00"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement style="Detail" x="0" y="0" width="92" height="15" uuid="18aae93a-043b-4fb6-bba5-0c6af2edc743"/>
+				<reportElement style="Detail" x="0" y="0" width="71" height="15" uuid="18aae93a-043b-4fb6-bba5-0c6af2edc743"/>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="92" y="0" width="92" height="15" uuid="6d40de53-1772-4051-a370-fc74e7d2d875"/>
+				<reportElement style="Detail" x="71" y="0" width="132" height="15" uuid="6d40de53-1772-4051-a370-fc74e7d2d875"/>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="184" y="0" width="92" height="15" uuid="5dc7da46-dcbc-432f-a5f4-b3e19f731a9d"/>
+				<reportElement style="Detail" x="203" y="0" width="92" height="15" uuid="5dc7da46-dcbc-432f-a5f4-b3e19f731a9d"/>
 				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="276" y="0" width="92" height="15" uuid="0f6bb5f9-589a-4fff-99df-c76275b73786"/>
+				<reportElement style="Detail" x="295" y="0" width="92" height="15" uuid="0f6bb5f9-589a-4fff-99df-c76275b73786"/>
 				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="368" y="0" width="92" height="15" uuid="2be80c3a-2624-426d-9bdf-46eea3f0b66f"/>
+				<reportElement style="Detail" x="387" y="0" width="92" height="15" uuid="2be80c3a-2624-426d-9bdf-46eea3f0b66f"/>
 				<textFieldExpression><![CDATA[$F{bill}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="Detail" x="460" y="0" width="92" height="15" uuid="d82d7489-8a62-4514-a50f-3014c190d544"/>
+			<textField pattern="#,##0.00">
+				<reportElement style="Detail" x="479" y="0" width="93" height="15"  uuid="d82d7489-8a62-4514-a50f-3014c190d544"/>
 				<textFieldExpression><![CDATA[$F{price_final}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -173,7 +173,7 @@ order by p.id]]>
 	<columnFooter>
 		<band height="55" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="0b7ea14d-ddec-47c0-992a-588b46657511"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="572" height="1" uuid="0b7ea14d-ddec-47c0-992a-588b46657511"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>

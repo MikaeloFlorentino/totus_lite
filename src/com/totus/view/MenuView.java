@@ -25,6 +25,9 @@ public class MenuView extends javax.swing.JFrame {
     QuirofanoVentaView quirofanoVentaView;
     ProductView productView;
     DevolucionView returnProductView;
+    ReportQuirofanoSumaryView reportQuirofanoSumaryView;
+    ReportQuirofanoListView reportQuirofanoListView;
+    ReportDevolucionListView reportDevolucionListView;
     
     ProductController productController;
     Product product;
@@ -52,6 +55,9 @@ public class MenuView extends javax.swing.JFrame {
         quirofanoVentaView  = new QuirofanoVentaView(this, false);
         productView = new ProductView(this, true);
         returnProductView = new DevolucionView(this, false);
+        reportQuirofanoSumaryView = new ReportQuirofanoSumaryView(this, false);
+        reportQuirofanoListView = new ReportQuirofanoListView(this, false);
+        reportDevolucionListView = new ReportDevolucionListView(this, false);
     }
 
     
@@ -79,9 +85,9 @@ public class MenuView extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
@@ -240,19 +246,29 @@ public class MenuView extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem5);
 
-        jMenuItem6.setText("Quirofanos");
+        jMenuItem1.setText("Devoluciones");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem8.setText("Listado Quirofanos");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem8);
+
+        jMenuItem6.setText("Quirofanos Cerrados");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem6ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem6);
-
-        jMenuItem8.setText("Costo - Venta");
-        jMenu3.add(jMenuItem8);
-
-        jMenuItem1.setText("Detalle Venta");
-        jMenu3.add(jMenuItem1);
 
         jMenuBar.add(jMenu3);
 
@@ -340,13 +356,16 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         Map parameters = new HashMap();
-        parameters.put("TITULO", "PAISES");
-        parameters.put("SIMON", "321654");
-        report.getReport("report2", parameters);
+        report.getReport(Constant.REPORT_PRODUCTOS, parameters);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        report.getReport("reporte3");
+        if(!reportQuirofanoSumaryView.isVisible()){
+            reportQuirofanoSumaryView = new ReportQuirofanoSumaryView(this, true);
+            reportQuirofanoSumaryView.setVisible(true);
+        }else{
+            reportQuirofanoSumaryView.toFront();
+        }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -399,6 +418,27 @@ public class MenuView extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // ReportQuirofanoListView
+        if(!reportQuirofanoListView.isVisible()){
+            reportQuirofanoListView = new ReportQuirofanoListView(this, false);
+            reportQuirofanoListView.setVisible(true);
+        }else{
+            reportQuirofanoListView.toFront();
+        }
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // ReportDevolucionListView
+        if(!reportDevolucionListView.isVisible()){
+            reportDevolucionListView = new ReportDevolucionListView(this, false);
+            reportDevolucionListView.setVisible(true);
+        }else{
+            reportDevolucionListView.toFront();
+        }
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
      private void cargaProductosExpirados(){
         model.setNumRows(0);

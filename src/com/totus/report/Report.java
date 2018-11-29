@@ -37,7 +37,7 @@ public class Report {
         
     }
     
-    public void getReport(String reporte) {
+   /* public void getReport(String reporte) {
         archivo = Constant.PARAMETER_FILE_PATH_REPORT+reporte+".jrxml";
         System.out.println("\t Reporte: " + archivo);
         try {
@@ -58,11 +58,11 @@ public class Report {
             JasperViewer jviewer = new JasperViewer(print,false);
                  jviewer.setTitle("Sistema de gestión de Cartera");
                  jviewer.setVisible(true);
-           /*      
+           / *      
             JFrame frame = new JFrame("Report");
             frame.getContentPane().add(new JRViewer(print));
             frame.pack();
-            frame.setVisible(true);*/
+            frame.setVisible(true);* /
         } catch (JRException ex) {
             Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,7 +73,7 @@ public class Report {
             Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }
+    }*/
     
     
     public void getReport(String reporte, Map parameters) {
@@ -96,7 +96,7 @@ public class Report {
             
             //JasperViewer.viewReport(print, false);
             JasperViewer jviewer = new JasperViewer(print,false);
-                 jviewer.setTitle("Sistema de gestión de Cartera");
+                 jviewer.setTitle("Control Inventarios 1.0.0");
                  jviewer.setVisible(true);
            /*      
             JFrame frame = new JFrame("Report");

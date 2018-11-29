@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f02dc124-5b36-4cca-840e-ea7fd3f700fa">
-	<property name="ireport.zoom" value="1.331000000000004"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.331000000000005"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
@@ -10,6 +10,7 @@
 	<parameter name="DEVOLUCION" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="MENSAJE" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="FCIERRE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORTES" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT dp.devolucion_id, dp.products_id, p.description, p.lote, p.bill, p.return_date, p.provider_id, pr.name||' '|| pr.first_last_name||' '||pr.second_last_name as name
   from devolucion_producto  dp 
@@ -45,12 +46,12 @@ WHERE dp.devolucion_id = $P!{DEVOLUCION}]]>
 				<text><![CDATA[IDentificador]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="Detail" x="72" y="31" width="92" height="15" uuid="17e92ca8-173f-40b9-9f0b-f1ba0af280b4"/>
+				<reportElement style="Detail" x="72" y="31" width="106" height="15" uuid="17e92ca8-173f-40b9-9f0b-f1ba0af280b4"/>
 				<textFieldExpression><![CDATA[$P{DEVOLUCION}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="621" y="0" width="181" height="61" uuid="e9520a94-76d7-40d3-800e-79aeb7cf0c3e"/>
-				<imageExpression><![CDATA["/reportes/leaf_banner_gray.png"]]></imageExpression>
+				<reportElement x="571" y="0" width="181" height="61" uuid="e9520a94-76d7-40d3-800e-79aeb7cf0c3e"/>
+				<imageExpression><![CDATA[$P{REPORTES}+"leaf_banner_gray.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="277" y="0" width="213" height="32" uuid="ca034897-3866-4975-b253-170226ebfb50"/>
@@ -64,7 +65,7 @@ WHERE dp.devolucion_id = $P!{DEVOLUCION}]]>
 				<textFieldExpression><![CDATA[$P{FCIERRE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="72" y="46" width="549" height="32" uuid="a6fa8bf6-5783-4d0f-9bd6-0031cc59546c"/>
+				<reportElement style="Detail" x="72" y="46" width="499" height="32" uuid="a6fa8bf6-5783-4d0f-9bd6-0031cc59546c"/>
 				<textFieldExpression><![CDATA[$P{MENSAJE}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -82,7 +83,7 @@ WHERE dp.devolucion_id = $P!{DEVOLUCION}]]>
 	<columnHeader>
 		<band height="38" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="802" height="1" uuid="cf1f08f0-ee14-4f82-a579-7e7ba410746e"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="752" height="1" uuid="cf1f08f0-ee14-4f82-a579-7e7ba410746e"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -101,22 +102,22 @@ WHERE dp.devolucion_id = $P!{DEVOLUCION}]]>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="430" y="19" width="79" height="15" uuid="75d6844c-b3a8-43c8-881f-06ddcac10abd"/>
-				<text><![CDATA[bill]]></text>
+				<text><![CDATA[factura]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="Column header" x="509" y="19" width="80" height="15" uuid="8a0e102b-3344-480b-a2dd-d449cc1390e6"/>
 				<text><![CDATA[Id Proveedor]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="589" y="19" width="213" height="15" uuid="f7d3a4b4-ef10-4fe0-a556-8ca4714bab81"/>
-				<text><![CDATA[Nombre Proveedor]]></text>
+				<reportElement style="Column header" x="589" y="19" width="161" height="15" uuid="f7d3a4b4-ef10-4fe0-a556-8ca4714bab81"/>
+				<text><![CDATA[nombre Proveedor]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="18" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="2bf58dcf-8125-4ae2-bafe-27596b3d4e30"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="752" height="1" uuid="2bf58dcf-8125-4ae2-bafe-27596b3d4e30"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -142,7 +143,7 @@ WHERE dp.devolucion_id = $P!{DEVOLUCION}]]>
 				<textFieldExpression><![CDATA[$F{provider_id}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement style="Detail" x="589" y="0" width="213" height="15" uuid="3dc450a2-7a9d-4779-ba8b-bee57072ddcf"/>
+				<reportElement style="Detail" x="589" y="0" width="161" height="15" uuid="3dc450a2-7a9d-4779-ba8b-bee57072ddcf"/>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -150,7 +151,7 @@ WHERE dp.devolucion_id = $P!{DEVOLUCION}]]>
 	<columnFooter>
 		<band height="52" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="50399ed6-5bb1-47d8-ab08-67ec80fa7f59"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="752" height="1" uuid="50399ed6-5bb1-47d8-ab08-67ec80fa7f59"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
@@ -166,14 +167,14 @@ WHERE dp.devolucion_id = $P!{DEVOLUCION}]]>
 	<pageFooter>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement style="Column header" x="681" y="0" width="80" height="20" uuid="c73d534b-92f7-4a6e-b6f1-6698d5481771"/>
+				<reportElement style="Column header" x="630" y="0" width="80" height="20" uuid="c73d534b-92f7-4a6e-b6f1-6698d5481771"/>
 				<textElement textAlignment="Right">
 					<font size="10" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement style="Column header" x="761" y="0" width="40" height="20" uuid="e4748b26-1046-4a92-bb0f-df78f052c321"/>
+				<reportElement style="Column header" x="710" y="0" width="40" height="20" uuid="e4748b26-1046-4a92-bb0f-df78f052c321"/>
 				<textElement>
 					<font size="10" isBold="false"/>
 				</textElement>
