@@ -54,6 +54,8 @@ public class Constant {
     final public static String REPORT_VENTA = "venta";
     final public static String REPORT_DEVOLUCION = "devolucion";
     
+    final public static String REPORT_CLIENTES = "clients";
+    final public static String REPORT_PROVEEDORES = "providers";
     final public static String REPORT_PRODUCTOS = "products";
     final public static String REPORT_QUIROFANO_SUMARY = "quirofano_sumary";
     final public static String REPORT_QUIROFANO_LIST = "quirofano_list";
