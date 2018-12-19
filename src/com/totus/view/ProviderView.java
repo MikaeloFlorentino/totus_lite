@@ -393,7 +393,7 @@ public class ProviderView  extends View <Provider> {
     
     private void laodData() {
         provider.setNombre(jTNombre.getText());
-        provider.setPersona(jCBUserType.getSelectedObjects().toString());
+        provider.setPersona(jCBUserType.getSelectedItem().toString());
         provider.setApellidoPaterno(jTPaterno.getText());
         provider.setApellidoMaterno(jTMaterno.getText());
         provider.setFechaNacimiento(jDateChooser14.getDate());

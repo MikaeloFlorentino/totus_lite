@@ -50,6 +50,11 @@ public class LoginView  extends javax.swing.JFrame {
         setTitle("Control Inventarios 1.0.0");
 
         jLUsername.setText("Usuario");
+        jLUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLUsernameMouseClicked(evt);
+            }
+        });
 
         jLPassword.setText("Contraseña");
 
@@ -136,6 +141,10 @@ public class LoginView  extends javax.swing.JFrame {
         jTPassword.setText("123456");
         jBLogginActionPerformed(null);
     }//GEN-LAST:event_jLIconMouseClicked
+
+    private void jLUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLUsernameMouseClicked
+        JOptionPane.showMessageDialog(this, "v. 1.0.7\nhttps://www.nariux.com/totus/version", "Version", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jLUsernameMouseClicked
 
     
 

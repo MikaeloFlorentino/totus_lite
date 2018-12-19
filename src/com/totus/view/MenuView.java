@@ -478,7 +478,7 @@ public class MenuView extends javax.swing.JFrame {
             for(Product p: listProduct){
                 model.addRow(new Object[]{p.getId(), p.getFechaExpiracion()});
             }
-            JOptionPane.showMessageDialog(this, "Se ecnontraron productos por caducar", "Alerta",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Se encontraron productos por caducar", "Alerta",JOptionPane.WARNING_MESSAGE);
         }
     }
 
