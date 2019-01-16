@@ -57,16 +57,22 @@ public class Constant {
     final public static String REPORT_CLIENTES = "clients";
     final public static String REPORT_PROVEEDORES = "providers";
     final public static String REPORT_PRODUCTOS = "products";
+    final public static String REPORT_PRODUCTOS_CADUCAR = "products_expirats";
+    final public static String REPORT_PRODUCTOS_CLAVE ="products_clave";
     final public static String REPORT_QUIROFANO_SUMARY = "quirofano_sumary";
     final public static String REPORT_QUIROFANO_LIST = "quirofano_list";
     final public static String REPORT_DEVOLUCION_LIST = "devolucion_list";
     
+    final public static int STATUS_TODOS = 0;
     final public static int STATUS_ACTIVO = 1;
     final public static int STATUS_INACTIVO = 2;
     final public static int STATUS_QUIROFANO = 3;
     final public static int STATUS_VENDIDO = 4;
     final public static int STATUS_DEVUELTO = 5;
     
+    final public static int REPORT_PRODUCTOS_TODOS_ID = 0;
+    final public static int REPORT_PRODUCTOS_CADUCAR_ID = 1;
+    final public static int REPORT_PRODUCTOS_CLAVE_ID = 2;
     
     final public static boolean VENDIDO=true;
     final public static boolean NO_VENDIDO=false;

@@ -442,7 +442,7 @@ public class ProductView extends View <Product> {
         if((0 != jTIdentificador.getText().compareTo(""))&& (!salida)){
             busca();
         }else{
-            productFinder.abre(0);
+            productFinder.abre(Constant.STATUS_TODOS);
             if(productFinder.getSelect()!=0){
                 jTIdentificador.setText(String.valueOf(productFinder.getSelect()));
                 busca();

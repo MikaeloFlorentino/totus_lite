@@ -143,7 +143,7 @@ public class LoginView  extends javax.swing.JFrame {
     }//GEN-LAST:event_jLIconMouseClicked
 
     private void jLUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLUsernameMouseClicked
-        JOptionPane.showMessageDialog(this, "v. 1.0.7\nhttps://www.nariux.com/totus/version", "Version", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "v. 1.0.8\nhttps://www.nariux.com/totus/version", "Version", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jLUsernameMouseClicked
 
     

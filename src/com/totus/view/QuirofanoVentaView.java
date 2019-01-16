@@ -6,7 +6,6 @@ import com.totus.controller.QuirofanoController;
 import com.totus.controller.QuirofanoProductoController;
 import com.totus.controller.UserController;
 import com.totus.finderView.ClientFinder;
-import com.totus.finderView.ProductFinder;
 import com.totus.finderView.QuirofanoFinder;
 import com.totus.finderView.UserFinder;
 import com.totus.model.Product;
@@ -48,7 +47,6 @@ public class QuirofanoVentaView extends View <Quirofano> {
     ClientFinder clientFinder;
     QuirofanoFinder quirofanoFinder;
     UserFinder userFinder;
-    ProductFinder productFinder;
     Report report;
     
     public QuirofanoVentaView(java.awt.Frame parent, boolean modal) {
@@ -72,7 +70,6 @@ public class QuirofanoVentaView extends View <Quirofano> {
         clientFinder = new ClientFinder(parent, true);
         quirofanoFinder = new QuirofanoFinder(parent, true);
         userFinder = new UserFinder(parent, true);
-        productFinder = new ProductFinder(parent, true);
         
         report = new Report();
     }

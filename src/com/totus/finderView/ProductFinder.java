@@ -47,7 +47,7 @@ public class ProductFinder  extends View <Product> {
         select = 0;
         model.setNumRows(0);
         listProduct = null;
-        this.statusId = statusId;
+        iniciaFiltro(statusId);
         this.setVisible(true);
         
     }
@@ -56,36 +56,41 @@ public class ProductFinder  extends View <Product> {
         select = 0;
         model.setNumRows(0);
         listProduct = null;
-        this.statusId = statusId;
+        iniciaFiltro(statusId);
         this.quirofanoId = quirofanoId;
         this.setVisible(true);
         
+    }
+    
+    private void iniciaFiltro(int statusId){ 
+        this.statusId = statusId;
+        if(statusId !=0 ){
+            jCSelecciuon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre" }));
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTFProduct = new javax.swing.JTable();
         jTFNombre = new javax.swing.JTextField();
         jBFBuscarP = new javax.swing.JButton();
         jBFSeleccionar = new javax.swing.JButton();
         jBFProCancelar = new javax.swing.JButton();
+        jCSelecciuon = new javax.swing.JComboBox<>();
 
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setText("Nombre producto");
 
         jTFProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "identificador", "Nombre", "Factura"
+                "identificador", "Nombre", "Clave"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -125,6 +130,8 @@ public class ProductFinder  extends View <Product> {
             }
         });
 
+        jCSelecciuon.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nombre", "clave" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,7 +141,7 @@ public class ProductFinder  extends View <Product> {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jCSelecciuon, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jTFNombre)
                         .addGap(18, 18, 18)
@@ -151,9 +158,9 @@ public class ProductFinder  extends View <Product> {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
                     .addComponent(jTFNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBFBuscarP))
+                    .addComponent(jBFBuscarP)
+                    .addComponent(jCSelecciuon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -181,11 +188,16 @@ public class ProductFinder  extends View <Product> {
                 
             }
         }else{
-            listProduct = productController.getListByName(product);
+            if(0 == jCSelecciuon.getSelectedIndex()){
+                listProduct = productController.getListByName(product);
+            }else {
+                listProduct = productController.getListByClave(product);
+            }
+            
         }
         if(listProduct.size()>0){
             for(Product p: listProduct){
-                model.addRow(new Object[]{p.getId(), p.getDescripcion(), p.getFactura()});
+                model.addRow(new Object[]{p.getId(), p.getDescripcion(), p.getClave()});
             }
             
         }else{
@@ -225,7 +237,7 @@ public class ProductFinder  extends View <Product> {
     private javax.swing.JButton jBFProCancelar;
     private javax.swing.JButton jBFSeleccionar;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> jCSelecciuon;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFNombre;
     private javax.swing.JTable jTFProduct;

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="PCLAVE" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="REPORTES" class="java.lang.String" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.clave, p.id, s.description estatus, pr.name ||' '|| pr.first_last_name ||' '|| pr.second_last_name as provedor, p.lote, p.description,  p.bill, 
+	case when p.perishable then 'Si' else 'No' end as perecedero, 
+	case when p.perishable then p.expiration_date::date else null end expiracion
+  FROM public.products p
+  inner join providers pr on p.provider_id = pr.id 
+  inner join statuses s on p.status_id = s.id
+where p.clave='$P!{PCLAVE}'  
+  order by p.clave, p.status_id, p.id]]>
+	</queryString>
+	<field name="clave" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="provedor" class="java.lang.String"/>
+	<field name="lote" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="bill" class="java.lang.String"/>
+	<field name="perecedero" class="java.lang.String"/>
+	<field name="expiracion" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="620" y="0" width="181" height="61" uuid="4dfa6357-2ea3-4057-83d6-14f777bf89cd"/>
+				<imageExpression><![CDATA[$P{REPORTES}+"leaf_banner_gray.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="243" y="0" width="315" height="32" uuid="22cbdb0c-9f49-439a-bbb9-5904808677fa"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Productos por Clave]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="34" width="315" height="32" uuid="b3a7458d-6340-48c6-ae34-f41a46af9505"/>
+				<textElement>
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{PCLAVE}]]></textFieldExpression>				
+                
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="802" height="1" uuid="7f5130d6-9e43-4fee-b03a-c7ce5aecd19e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="61" height="15" uuid="20183009-705f-4650-86d4-12b73140d3cf"/>
+				<text><![CDATA[Clave]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="61" y="19" width="61" height="15" uuid="fc96a4b4-41c8-4c1d-a393-7d69feb97e48"/>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="122" y="19" width="61" height="15" uuid="952f7772-3a1d-4958-bcba-68c865a1c143"/>
+				<text><![CDATA[Estatus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="183" y="19" width="113" height="15" uuid="c529d98e-8a09-48c0-ba47-312a175ef761"/>
+				<text><![CDATA[Provedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="296" y="19" width="61" height="15" uuid="7c4a8328-96d3-45f9-aa29-1a1ebe706c81"/>
+				<text><![CDATA[Lote]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="357" y="19" width="163" height="15" uuid="dca33af6-3b72-46c0-bd4d-f2e0003a5cf7"/>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="520" y="19" width="61" height="15" uuid="cf548d2d-f54b-4181-9135-5e84d2479939"/>
+				<text><![CDATA[Factura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="586" y="19" width="108" height="15" uuid="ff18997b-cff5-48b1-bca5-6c5783c61fb4"/>
+				<text><![CDATA[Perecedero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="694" y="19" width="107" height="15" uuid="f1644541-5b88-4ddb-aa0a-551be7a4327d"/>
+				<text><![CDATA[Expiracion]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="9419a46a-8bc6-48c0-8b7f-2e5d8a6e3a61"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="61" height="15" uuid="f13ef5be-0c51-4628-9314-fd34be57e5ac"/>
+				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="61" y="0" width="61" height="15" uuid="10aa729a-397c-4c7e-9bb0-1ffdba6c96e9"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="122" y="0" width="61" height="15" uuid="72d73e54-71b7-444b-b282-ec0ed6fc61ca"/>
+				<textFieldExpression><![CDATA[$F{estatus}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="183" y="0" width="113" height="15" uuid="5546d489-dc4f-4229-86f1-0b174e6bc6f2"/>
+				<textFieldExpression><![CDATA[$F{provedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="296" y="0" width="61" height="15" uuid="27205c50-ffd8-4dcb-8a57-0b4c34fa66ce"/>
+				<textFieldExpression><![CDATA[$F{lote}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="357" y="0" width="163" height="15" uuid="b487d055-460d-41eb-bd06-976939203d40"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="520" y="0" width="61" height="15" uuid="c98c20c7-844b-4e59-b2e5-13b7766f5f0e"/>
+				<textFieldExpression><![CDATA[$F{bill}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="586" y="0" width="108" height="15" uuid="9f3b50f6-f5c8-43cc-ad71-053382323051"/>
+				<textFieldExpression><![CDATA[$F{perecedero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="694" y="0" width="107" height="15" uuid="5e9a0d73-c848-434a-8fa3-ecb88a195772"/>
+				<textFieldExpression><![CDATA[$F{expiracion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="681" y="0" width="80" height="20" uuid="a2e2d37d-f586-49fd-8dc5-e622b86125db"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="761" y="0" width="40" height="20" uuid="87a64edc-c589-41b0-90de-4113b9d2b0c7"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="75da1a6a-eeb6-43ae-9a3b-e918bdbc9acd"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

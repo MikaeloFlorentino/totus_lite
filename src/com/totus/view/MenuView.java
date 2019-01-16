@@ -28,7 +28,7 @@ public class MenuView extends javax.swing.JFrame {
     ReportQuirofanoSumaryView reportQuirofanoSumaryView;
     ReportQuirofanoListView reportQuirofanoListView;
     ReportDevolucionListView reportDevolucionListView;
-    
+    ReportProductView reportProductView;
     ProductController productController;
     Product product;
     DefaultTableModel model;
@@ -58,6 +58,7 @@ public class MenuView extends javax.swing.JFrame {
         reportQuirofanoSumaryView = new ReportQuirofanoSumaryView(this, false);
         reportQuirofanoListView = new ReportQuirofanoListView(this, false);
         reportDevolucionListView = new ReportDevolucionListView(this, false);
+        reportProductView = new ReportProductView(this, false);
     }
 
     
@@ -375,8 +376,12 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        Map parameters = new HashMap();
-        report.getReport(Constant.REPORT_PRODUCTOS, parameters);
+        if(!reportProductView.isVisible()){
+            reportProductView = new ReportProductView(this, true);
+            reportProductView.setVisible(true);
+        }else{
+            reportProductView.toFront();
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed

@@ -258,6 +258,53 @@ public class ProductController extends Controller<Product> {
         return instance;
     }
 
+    public List<Product> getListByClave(Product instance) {
+        List<Product> listProduct = new ArrayList<>();
+        ProductTab productTab = new ProductTab();
+        Product product = new Product();
+        instance.setCampos(
+                productTab.getId()+", "+
+                productTab.getDescription()+", "+
+                productTab.getClave()
+               
+            );
+        if(null != instance.getDescripcion()){
+            if(instance.getDescripcion().trim().length()>0){
+                instance.setCondicional(" WHERE "+productTab.getClave()+" like '%"+instance.getDescripcion()+"%'");
+            }else{
+                instance.setCondicional("");
+            }
+        }else{
+            instance.setCondicional("");
+        }
+            
+        
+        
+        ResultSet result=null;
+        try {
+            result = super.select(instance);
+            if(result != null){
+                try {
+                    while (result .next()){
+                        product = new Product();
+                        product.setId(result.getInt(1) );
+                        product.setDescripcion(result.getString(2) );
+                        product.setClave(result.getString(3));
+                        product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
+                        listProduct.add(product);
+                    }
+                } catch (SQLException ex) {
+                    //instance.setError(new Error("000003", ex.getMessage()));
+                }
+            }
+        } catch (SQLException ex) {
+            //instance.setError(new Error("000002", ex.getMessage()));
+        } catch (ClassNotFoundException ex) {
+            //instance.setError(new Error("000001", ex.getMessage()));
+        }
+        return listProduct;
+    }
+    
     public List<Product> getListByName(Product instance) {
         List<Product> listProduct = new ArrayList<>();
         ProductTab productTab = new ProductTab();
@@ -265,7 +312,7 @@ public class ProductController extends Controller<Product> {
         instance.setCampos(
                 productTab.getId()+", "+
                 productTab.getDescription()+", "+
-                productTab.getBill()
+                productTab.getClave()
                
             );
         if(null != instance.getDescripcion()){
@@ -289,7 +336,7 @@ public class ProductController extends Controller<Product> {
                         product = new Product();
                         product.setId(result.getInt(1) );
                         product.setDescripcion(result.getString(2) );
-                        product.setFactura(result.getString(3));
+                        product.setClave(result.getString(3));
                         product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         listProduct.add(product);
                     }
@@ -324,7 +371,7 @@ public class ProductController extends Controller<Product> {
         instance.setCampos(
                 productTab.getId()+", "+
                 productTab.getDescription()+", "+
-                productTab.getBill()
+                productTab.getClave()
                
             );
         if(null != instance.getDescripcion()){
@@ -350,7 +397,7 @@ public class ProductController extends Controller<Product> {
                         product = new Product();
                         product.setId(result.getInt(1) );
                         product.setDescripcion(result.getString(2) );
-                        product.setFactura(result.getString(3));
+                        product.setClave(result.getString(3));
                         product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         listProduct.add(product);
                     }
@@ -374,7 +421,7 @@ public class ProductController extends Controller<Product> {
         instance.setCampos(
                 "p."+productTab.getId()+", "+
                 "p."+productTab.getDescription()+", "+
-                "p."+productTab.getBill()
+                "p."+productTab.getClave()
                
             );
         if(null != instance.getDescripcion()){
@@ -411,7 +458,7 @@ public class ProductController extends Controller<Product> {
                         product = new Product();
                         product.setId(result.getInt(1) );
                         product.setDescripcion(result.getString(2) );
-                        product.setFactura(result.getString(3));
+                        product.setClave(result.getString(3));
                         product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         listProduct.add(product);
                     }
@@ -481,7 +528,7 @@ public class ProductController extends Controller<Product> {
         instance.setCampos(
                 productTab.getId()+", "+
                 productTab.getDescription()+", "+
-                productTab.getBill()
+                productTab.getClave()
                
             );
         if(null != instance.getDescripcion()){
@@ -512,7 +559,7 @@ public class ProductController extends Controller<Product> {
                         product = new Product();
                         product.setId(result.getInt(1) );
                         product.setDescripcion(result.getString(2) );
-                        product.setFactura(result.getString(3));
+                        product.setClave(result.getString(3));
                         product.setError(new com.totus.model.Error("000000", "Lista encontrada"));
                         listProduct.add(product);
                     }
